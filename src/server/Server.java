@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class Server {
 
-    private String ip = "localhost";
-    private int port = 28702;
+    public String ip = "localhost";
+    public int port = 28702;
     private Scanner scanner = new Scanner(System.in);
     private Thread thread;
 
@@ -20,6 +20,8 @@ public class Server {
     private DataInputStream dis;
 
     private ServerSocket serverSocket;
+
+    private boolean godtatt = false;
 
     public Server() {
         System.out.println("Skriv inn ip-adressen");
@@ -30,48 +32,59 @@ public class Server {
             System.out.println("Porten du skrev inn er ikke en gyldig port mellom 1 og 66666");
             port = scanner.nextInt();
         }
-        serverSocket = null;
-        try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Venter på spillere på port " + port + "...");
-            while ((socket = serverSocket.accept())!=null) {
-                System.out.println("Ny spiller forespørsel");
-                new SpillerBehandler(socket).start();
-            }
-        } catch (Exception e) {
-            System.err.println("Port " + port + " er opptatt...");
-            e.printStackTrace();
+        if (!connect()) {
+            oppstartAvNyServer();
         }
+
+
 
     }
 
-    private void lytterEtterAnnenServer() {
-        Socket socket = null;
+    public void run() {
         try {
-            socket = serverSocket.accept();
-            dos = new DataOutputStream(socket.getOutputStream());
-            dis = new DataInputStream(socket.getInputStream());
+            PrintStream output = new PrintStream(socket.getOutputStream());
+            output.println("itzzz workzzz");
+        } catch (Exception e) {
+            System.err.print("Melding ikke motatt");
+        }
+    }
 
+    private void oppstartAvNyServer() {
+        try {
+            serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
+            System.out.println("Opprettet server");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /*public Server() throws IOException{
-        ServerSocket serverSocket = null;
-        int port = 28702;
+    private boolean lytterEtterAnnenServer() {
+        Socket socket = null;
+        boolean forbindelse = false;
         try {
-            serverSocket = new ServerSocket(port);
-            Socket socket;
-            System.out.println("Venter på spillere på port " + port + "...");
-            while ((socket = serverSocket.accept())!=null) {
-                System.out.println("Ny spiller forespørsel");
-                new SpillerBehandler(socket).start();
-            }
-        } catch (Exception e) {
-            System.err.println("Ingen forbindelse ved port " + port + "...");
+            socket = serverSocket.accept();
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+            godtatt = true;
+            forbindelse = true;
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+        return forbindelse;
+    }
+
+    private boolean connect() {
+        try {
+            socket = new Socket(ip, port);
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+            godtatt = true;
+        } catch (IOException e) {
+            System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
+            return false;
+        }
+        System.out.println("Har opprettet forbindelse med serveren");
+        return true;
+    }
 
 }
