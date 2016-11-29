@@ -22,6 +22,7 @@ public class Server {
     private ServerSocket serverSocket;
 
     private boolean godtatt = false;
+    private boolean something = true;
 
     public Server() {
         System.out.println("Skriv inn ip-adressen");
@@ -36,17 +37,16 @@ public class Server {
             oppstartAvNyServer();
         }
 
-        thread = new Thread(this, "TicTacToe");
+        thread = new Thread(this, "Server");
         thread.start();
 
     }
 
     public void run() {
-        try {
-            PrintStream output = new PrintStream(socket.getOutputStream());
-            output.println("itzzz workzzz");
-        } catch (Exception e) {
-            System.err.print("Melding ikke motatt");
+        while (true) {
+            if (!something && !godtatt) {
+                lytterEtterAnnenServer();
+            }
         }
     }
 
@@ -57,21 +57,19 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        something = true;
     }
 
-    private boolean lytterEtterAnnenServer() {
+    private void lytterEtterAnnenServer() {
         Socket socket = null;
-        boolean forbindelse = false;
         try {
             socket = serverSocket.accept();
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
-            forbindelse = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return forbindelse;
     }
 
     private boolean connect() {
