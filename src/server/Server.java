@@ -36,7 +36,8 @@ public class Server {
             oppstartAvNyServer();
         }
 
-
+        thread = new Thread(this, "TicTacToe");
+        thread.start();
 
     }
 
