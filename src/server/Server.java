@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Created by Bror on 18.11.2016.
  */
 
-public class Server {
+public class Server implements Runnable {
 
     public String ip = "localhost";
     public int port = 28702;
@@ -22,7 +22,6 @@ public class Server {
     private ServerSocket serverSocket;
 
     private boolean godtatt = false;
-    private boolean something = true;
 
     public Server() {
         System.out.println("Skriv inn ip-adressen");
@@ -37,14 +36,14 @@ public class Server {
             oppstartAvNyServer();
         }
 
-        thread = new Thread(this, "Server");
+        thread = new Thread(this, "TestServer");
         thread.start();
 
     }
 
     public void run() {
         while (true) {
-            if (!something && !godtatt) {
+            if (!godtatt) {
                 lytterEtterAnnenServer();
             }
         }
@@ -57,7 +56,6 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        something = true;
     }
 
     private void lytterEtterAnnenServer() {
