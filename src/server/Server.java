@@ -1,6 +1,7 @@
 package server;
 
 import gui.DamSpillVindu;
+import gui.GraphicUserInterface;
 
 import java.io.*;
 import java.net.*;
@@ -49,7 +50,6 @@ public class Server implements Runnable {
         thread.start(); //Starter en ny tråd
 
         System.out.println("Åpne GUI for spill");
-        new DamSpillVindu(); //åpner Vinduet som spillet skal kjøres i
 
     }
 
@@ -87,6 +87,7 @@ public class Server implements Runnable {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
+            new GraphicUserInterface(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Koblet til spiller");
         } catch (IOException e) {
             e.printStackTrace();
