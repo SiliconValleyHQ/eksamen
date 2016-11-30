@@ -51,15 +51,21 @@ public class Server implements Runnable {
 
     }
 
+    /*
+    * Hvis tilkoblingen ikke er mulig (ikke godtatt) vil programmet starte lytterEtterAnnenServer()
+     */
     public void run() {
         while (true) {
-            if (!godtatt) { //Hvis tilkoblingen ikke er mulig (ikke godtatt) vil programmet starte lytterEtterAnnenServer()
+            if (!godtatt) {
                 lytterEtterAnnenServer();
             }
         }
     }
 
-    private void oppstartAvNyServer() { //Denne metoden starter en ny ServerSocket på oppgitt port og IP-adresse
+    /*
+    * Denne metoden starter en ny ServerSocket på oppgitt port og IP-adresse
+     */
+    private void oppstartAvNyServer() {
         try {
             serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
             System.out.println("Opprettet server");
@@ -68,8 +74,12 @@ public class Server implements Runnable {
         }
     }
 
-    private void lytterEtterAnnenServer() { //Denne metoden har som oppgave å se om det er noen som prøver å koble til den.
-        Socket socket = null;               //Da vil godtatt = true, og en oppkobling skjer når socket = serverSocket.accepted();
+    /*
+    * Denne metoden har som oppgave å se om det er noen som prøver å koble til den.
+    * Da vil godtatt = true, og en oppkobling skjer når socket = serverSocket.accepted();
+     */
+    private void lytterEtterAnnenServer() {
+        Socket socket = null;
         try {
             socket = serverSocket.accept();
             dos = new DataOutputStream(socket.getOutputStream());
@@ -81,17 +91,20 @@ public class Server implements Runnable {
         }
     }
 
-    private boolean connect() { //Connect sender en forespørsel og ser om det er noe å koble til på oppgitt IP og Port.
+    /*
+    * Connect sender en forespørsel og ser om det er noe å koble til på oppgitt IP og Port.
+     */
+    private boolean connect() {
         try {
             socket = new Socket(ip, port);
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
+            System.out.println("Har opprettet forbindelse med serveren");
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
         }
-        System.out.println("Har opprettet forbindelse med serveren");
         return true;
     }
 
