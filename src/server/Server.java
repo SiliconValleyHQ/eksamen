@@ -103,6 +103,7 @@ public class Server implements Runnable {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
+            new GraphicUserInterface(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Har opprettet forbindelse med serveren");
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
