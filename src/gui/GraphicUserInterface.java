@@ -33,6 +33,7 @@ public class GraphicUserInterface extends Canvas implements ActionListener, Mous
         vindu.setVisible(true);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
