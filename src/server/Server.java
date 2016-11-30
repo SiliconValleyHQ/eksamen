@@ -1,5 +1,8 @@
 package server;
 
+import gui.DamSpillVindu;
+import gui.GraphicUserInterface;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -46,9 +49,6 @@ public class Server implements Runnable {
         thread = new Thread(this, "Server");
         thread.start(); //Starter en ny tråd
 
-        System.out.println("Åpne GUI for spill");
-        //new DamVindu(); //åpner spillets GUI
-
     }
 
     /*
@@ -86,6 +86,8 @@ public class Server implements Runnable {
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
             System.out.println("Koblet til spiller");
+            new GraphicUserInterface(); //åpner Vinduet som spillet skal kjøres i
+            System.out.println("Åpne GUI for spill");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,6 +103,8 @@ public class Server implements Runnable {
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
             System.out.println("Har opprettet forbindelse med serveren");
+            new GraphicUserInterface(); //åpner Vinduet som spillet skal kjøres i
+            System.out.println("Åpne GUI for spill");
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
