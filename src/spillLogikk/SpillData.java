@@ -6,10 +6,12 @@ package spillLogikk;
 public class SpillData {
 
     public void startNyttSpill(String s) {
-        SpillData.settOppNyttSpill();
-    }
 
-    private static void settOppNyttSpill() {
+        SpillRegler settOppBrikker = new SpillRegler();
+        settOppBrikker.settOppBrikkerForNyttSpill();
+
+
+
     }
 
 }
