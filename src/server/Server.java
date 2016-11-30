@@ -1,5 +1,7 @@
 package server;
 
+import gui.DamSpillVindu;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -47,7 +49,7 @@ public class Server implements Runnable {
         thread.start(); //Starter en ny tråd
 
         System.out.println("Åpne GUI for spill");
-        //new DamVindu(); //åpner spillets GUI
+        new DamSpillVindu(); //åpner Vinduet som spillet skal kjøres i
 
     }
 
