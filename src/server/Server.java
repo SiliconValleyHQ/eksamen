@@ -104,7 +104,11 @@ public class Server implements Runnable {
             godtatt = true;
             System.out.println("Har opprettet forbindelse med serveren");
             new GraphicUserInterface(); //åpner Vinduet som spillet skal kjøres i
+<<<<<<< HEAD
             System.out.println("Åpnet GUI for spill");
+=======
+            System.out.println("Åpne GUI for spill");
+>>>>>>> origin/Marius
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
