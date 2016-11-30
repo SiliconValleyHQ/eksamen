@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import spillLogikk.SpillData;
+import spillLogikk.*;
 
 /**
  * Created by Bror on 30.11.2016.
@@ -28,7 +28,10 @@ public class DamSpillVindu extends Canvas implements ActionListener, MouseListen
         giOppKnapp = new Button("Gi opp");
         giOppKnapp.addActionListener(this);
 
+        spillbrett = new SpillData();
 
+        SpillData nyttspill = new SpillData();
+        nyttspill.startNyttSpill("Start nytt spill");
     }
 
     @Override
