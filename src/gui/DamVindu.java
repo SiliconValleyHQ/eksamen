@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import test.DamSpill;
 
 /**
  * Created by mariuswetterlin on 30.11.2016.
@@ -17,14 +18,14 @@ public class DamVindu extends Canvas implements ActionListener, MouseListener  {
 
     public DamVindu() {
 
-        usualStuff();
-        new DamSpillVindu();
+        //usualStuff();
+        new DamSpill();
 
-        giOppKnapp = new Button("Gi opp");
-        giOppKnapp.addActionListener(this);
+        /*giOppKnapp = new Button("Gi opp");
+        giOppKnapp.addActionListener(this);*/
     }
 
-    private void usualStuff() {
+    /*private void usualStuff() {
         JFrame vindu = new JFrame();
         vindu.add(new SpillBrett());
         vindu.setBackground(Color.RED);
@@ -32,7 +33,7 @@ public class DamVindu extends Canvas implements ActionListener, MouseListener  {
         vindu.setFont(new Font("verdana", Font.BOLD, 16));
         vindu.setSize(600,450);
         vindu.setVisible(true);
-    }
+    }*/
 
 
     @Override
