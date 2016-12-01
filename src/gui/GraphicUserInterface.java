@@ -18,21 +18,21 @@ public class GraphicUserInterface extends Canvas implements ActionListener, Mous
 
     public GraphicUserInterface() {
 
-        //usualStuff();
+        usualStuff();
         new DamSpill();
 
         /*giOppKnapp = new Button("Gi opp");
         giOppKnapp.addActionListener(this);*/
     }
 
-    /*private void usualStuff() {
+    private void usualStuff() {
         JFrame vindu = new JFrame();
         vindu.setBackground(Color.RED);
         vindu.addMouseListener(this);
         vindu.setFont(new Font("verdana", Font.BOLD, 16));
         vindu.setSize(600,450);
         vindu.setVisible(true);
-    }*/
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -7,30 +7,7 @@ import java.util.Vector;
  */
 public class SpillRegler {
 
-    SpillData cSpillData;
-
-    public void setUpGame() {
-        // Set up the board with checkers in position for the beginning
-        // of a game.  Note that checkers can only be found in squares
-        // that satisfy  row % 2 == col % 2.  At the start of the game,
-        // all such squares in the first three rows contain black squares
-        // and all such squares in the last three rows contain red squares.
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if ( row % 2 == col % 2 ) {
-                    if (row < 3)
-                        cSpillData.board[row][col] = cSpillData.BLACK;
-                    else if (row > 4)
-                        cSpillData.board[row][col] = cSpillData.RED;
-                    else
-                        cSpillData.board[row][col] = cSpillData.EMPTY;
-                }
-                else {
-                    cSpillData.board[row][col] = cSpillData.EMPTY;
-                }
-            }
-        }
-    }  // end setUpGame()
+    public SpillData cSpillData;
 
     public FlyttBrikke[] getLegalJumpsFrom(int player, int row, int col) {
         // Return a list of the legal jumps that the specified player can

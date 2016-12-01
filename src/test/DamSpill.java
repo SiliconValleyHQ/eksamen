@@ -37,15 +37,14 @@ public class DamSpill implements ActionListener {
     //     yet selected, then selectedRow is -1.
     FlyttBrikke[] legalMoves;  // An array containing the legal moves for the
     //   current player.
-    SpillData cSpilldata = new SpillData();
+    SpillData cSpilldata;
 
     public DamSpill() {
         resignButton = new Button("Resign");
         resignButton.addActionListener(this);
-        newGameButton.addActionListener(this);
         message = new Label("",Label.CENTER);
         board = new CheckersData();
-        cSpilldata.doNewGame();
+        //cSpilldata.doNewGame();
     }
 
 
@@ -62,6 +61,9 @@ public class DamSpill implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Respond to user's click on one of the two buttons.
+        Object src = e.getSource();
+        if (src == resignButton)
+            cSpilldata.doResign();
     }
 }

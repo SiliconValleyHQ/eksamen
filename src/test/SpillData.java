@@ -11,15 +11,15 @@ import java.awt.event.MouseListener;
  */
 public class SpillData extends Canvas implements ActionListener, MouseListener {
 
-    public SpillRegler cSpillregler;
+    private SpillRegler cSpillregler = new SpillRegler();
     public DamSpill cDamSpill;
     public FlyttBrikke[] legalMoves;
     private int selectedRow = -1;
     private int selectedCol = -1;
 
-    public SpillData() {
+    private SpillData() {
         board = new int[8][8];
-        cSpillregler.setUpGame();
+        setUpGame();
         legalMoves = cSpillregler.getLegalMoves(currentPlayer);
     }
 
@@ -34,6 +34,29 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
     public int currentPlayer = EMPTY;
     //int selectedRow = 0;
 
+    public void setUpGame() {
+        // Set up the board with checkers in position for the beginning
+        // of a game.  Note that checkers can only be found in squares
+        // that satisfy  row % 2 == col % 2.  At the start of the game,
+        // all such squares in the first three rows contain black squares
+        // and all such squares in the last three rows contain red squares.
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if ( row % 2 == col % 2 ) {
+                    if (row < 3)
+                        board[row][col] = BLACK;
+                    else if (row > 4)
+                        board[row][col] = RED;
+                    else
+                        board[row][col] = EMPTY;
+                }
+                else {
+                    board[row][col] = EMPTY;
+                }
+            }
+        }
+    }  // end setUpGame()
+
     public void doNewGame() {
         // Begin a new game.
         if (cDamSpill.gameInProgress == true) {
@@ -42,7 +65,7 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
             cDamSpill.message.setText("Finish the current game first!");
             return;
         }
-        cSpillregler.setUpGame();   // Set up the pieces.
+        setUpGame();   // Set up the pieces.
         currentPlayer = RED;   // RED moves first.
         legalMoves = cSpillregler.getLegalMoves(RED);  // Get RED's legal moves.
         selectedRow = -1;   // RED has not yet selected a piece to move.
