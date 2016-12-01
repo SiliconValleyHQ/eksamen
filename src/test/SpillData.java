@@ -17,7 +17,7 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
     private int selectedRow = -1;
     private int selectedCol = -1;
 
-    private SpillData() {
+    public SpillData() {
         board = new int[8][8];
         setUpGame();
         legalMoves = cSpillregler.getLegalMoves(currentPlayer);
