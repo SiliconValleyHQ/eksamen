@@ -11,11 +11,11 @@ import java.awt.event.MouseListener;
  * Created by mariuswetterlin on 30.11.2016.
  */
 
-public class GraphicUserInterface extends Canvas implements ActionListener, MouseListener  {
+public class DamVindu extends Canvas implements ActionListener, MouseListener  {
 
     private Button giOppKnapp;
 
-    public GraphicUserInterface() {
+    public DamVindu() {
 
         usualStuff();
         new DamSpillVindu();
@@ -26,6 +26,7 @@ public class GraphicUserInterface extends Canvas implements ActionListener, Mous
 
     private void usualStuff() {
         JFrame vindu = new JFrame();
+        vindu.add(new SpillBrett());
         vindu.setBackground(Color.RED);
         vindu.addMouseListener(this);
         vindu.setFont(new Font("verdana", Font.BOLD, 16));
