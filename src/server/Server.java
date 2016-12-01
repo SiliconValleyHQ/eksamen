@@ -1,8 +1,6 @@
 package server;
 
-import gui.DamSpillVindu;
 import gui.GraphicUserInterface;
-
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
