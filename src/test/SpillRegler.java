@@ -32,6 +32,39 @@ public class SpillRegler {
         }
     }  // end setUpGame()
 
+    public FlyttBrikke[] getLegalJumpsFrom(int player, int row, int col) {
+        // Return a list of the legal jumps that the specified player can
+        // make starting from the specified row and column.  If no such
+        // jumps are possible, null is returned.  The logic is similar
+        // to the logic of the getLegalMoves() method.
+        if (player != cSpillData.RED && player != cSpillData.BLACK)
+            return null;
+        int playerKing;  // The constant representing a King belonging to player.
+        if (player == cSpillData.RED)
+            playerKing = cSpillData.RED_KING;
+        else
+            playerKing = cSpillData.BLACK_KING;
+        Vector moves = new Vector();  // The legal jumps will be stored in this vector.
+        if (cSpillData.board[row][col] == player || cSpillData.board[row][col] == playerKing) {
+            if (canJump(player, row, col, row+1, col+1, row+2, col+2))
+                moves.addElement(new FlyttBrikke(row, col, row+2, col+2));
+            if (canJump(player, row, col, row-1, col+1, row-2, col+2))
+                moves.addElement(new FlyttBrikke(row, col, row-2, col+2));
+            if (canJump(player, row, col, row+1, col-1, row+2, col-2))
+                moves.addElement(new FlyttBrikke(row, col, row+2, col-2));
+            if (canJump(player, row, col, row-1, col-1, row-2, col-2))
+                moves.addElement(new FlyttBrikke(row, col, row-2, col-2));
+        }
+        if (moves.size() == 0)
+            return null;
+        else {
+            FlyttBrikke[] moveArray = new FlyttBrikke[moves.size()];
+            for (int i = 0; i < moves.size(); i++)
+                moveArray[i] = (FlyttBrikke)moves.elementAt(i);
+            return moveArray;
+        }
+    }
+
     public FlyttBrikke[] getLegalMoves(int player) {
         // Return an array containing all the legal CheckersMoves
         // for the specfied player on the current board.  If the player

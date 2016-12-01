@@ -11,9 +11,9 @@ import java.awt.event.MouseListener;
  */
 public class SpillData extends Canvas implements ActionListener, MouseListener {
 
-    SpillRegler cSpillregler;
-    DamSpill cDamSpill;
-    private FlyttBrikke[] legalMoves;
+    public SpillRegler cSpillregler;
+    public DamSpill cDamSpill;
+    public FlyttBrikke[] legalMoves;
     private int selectedRow = -1;
     private int selectedCol = -1;
 
@@ -23,16 +23,16 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
         legalMoves = cSpillregler.getLegalMoves(currentPlayer);
     }
 
-    public static final int
-            EMPTY = 0,
-            RED = 1,
-            RED_KING = 2,
-            BLACK = 3,
-            BLACK_KING = 4;
+    public int EMPTY = 0;
+    public int RED = 1;
+    public int RED_KING = 2;
+    public int BLACK = 3;
+    public int BLACK_KING = 4;
 
     public int[][] board;  // board[r][c] is the contents of row r, column c.
-
-    public int currentPlayer = 0;
+    //boolean gameInProgress = new DamSpill().gameInProgress;
+    public int currentPlayer = EMPTY;
+    //int selectedRow = 0;
 
     public void doNewGame() {
         // Begin a new game.
@@ -44,10 +44,10 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
         }
         cSpillregler.setUpGame();   // Set up the pieces.
         currentPlayer = RED;   // RED moves first.
-        FlyttBrikke[] legalMoves = cSpillregler.getLegalMoves(RED);  // Get RED's legal moves.
-        int selectedRow = -1;   // RED has not yet selected a piece to move.
+        legalMoves = cSpillregler.getLegalMoves(RED);  // Get RED's legal moves.
+        selectedRow = -1;   // RED has not yet selected a piece to move.
         cDamSpill.message.setText("Red:  Make your move.");
-        boolean gameInProgress = true;
+        cDamSpill.gameInProgress = true;
         cDamSpill.resignButton.setEnabled(true);
         repaint();
     }
@@ -143,7 +143,7 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
       */
 
         if (move.isJump()) {
-            legalMoves = cSpillregler.getLegalMoves(currentPlayer,move.toRow,move.toCol);
+            legalMoves = cSpillregler.getLegalJumpsFrom(currentPlayer,move.toRow,move.toCol);
             if (legalMoves != null) {
                 if (currentPlayer == RED)
                     cDamSpill.message.setText("RED:  You must continue jumping.");
