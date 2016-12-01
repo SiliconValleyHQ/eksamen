@@ -5,12 +5,17 @@ package spillLogikk;
  */
 public class SpillData {
 
-    public void startNyttSpill(String s) {
+    public int[][] spillBrett;
 
-        SpillRegler settOppBrikker = new SpillRegler();
-        settOppBrikker.settOppBrikkerForNyttSpill();
+    public SpillData() {
+        spillBrett = new int[8][8];
+        startNyttSpill();
+    }
 
+    public void startNyttSpill() {
 
+        SpillRegler settOppNyttSpill = new SpillRegler();
+        settOppNyttSpill.settOppNyttSpill();
 
     }
 
