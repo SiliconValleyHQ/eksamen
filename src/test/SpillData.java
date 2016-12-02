@@ -11,7 +11,8 @@ import java.awt.event.MouseListener;
  */
 public class SpillData extends Canvas implements ActionListener, MouseListener {
 
-    private SpillRegler cSpillregler = new SpillRegler();
+    //TODO Finn en bedre måte å importere metoder fra andre klasser på enn slik det blir gjort under.
+    private SpillRegler cSpillregler;
     public DamSpill cDamSpill;
     public FlyttBrikke[] legalMoves;
     private int selectedRow = -1;
@@ -20,7 +21,7 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
     public SpillData() {
         board = new int[8][8];
         setUpGame();
-        legalMoves = cSpillregler.getLegalMoves(currentPlayer);
+        legalMoves = this.cSpillregler.getLegalMoves(currentPlayer);
     }
 
     public int EMPTY = 0;
@@ -58,15 +59,9 @@ public class SpillData extends Canvas implements ActionListener, MouseListener {
     }  // end setUpGame()
 
     public void doNewGame() {
-        // Begin a new game.
-        if (cDamSpill.gameInProgress == true) {
-            // This should not be possible, but it doens't
-            // hurt to check.
-            cDamSpill.message.setText("Finish the current game first!");
-            return;
-        }
         setUpGame();   // Set up the pieces.
         currentPlayer = RED;   // RED moves first.
+        //TODO Her er det noe fører til feilmeldingeer... Misstenker det er måten jeg kaller inn metoder på
         legalMoves = cSpillregler.getLegalMoves(RED);  // Get RED's legal moves.
         selectedRow = -1;   // RED has not yet selected a piece to move.
         cDamSpill.message.setText("Red:  Make your move.");
