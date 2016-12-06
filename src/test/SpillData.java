@@ -12,8 +12,8 @@ import java.awt.event.MouseListener;
 public class SpillData extends Canvas implements ActionListener, MouseListener {
 
     //TODO Finn en bedre måte å importere metoder fra andre klasser på enn slik det blir gjort under.
-    private SpillRegler cSpillregler;
-    public DamSpill cDamSpill;
+    public SpillRegler cSpillregler = new SpillRegler();
+    public DamSpill cDamSpill = new DamSpill();
     public FlyttBrikke[] legalMoves;
     private int selectedRow = -1;
     private int selectedCol = -1;
