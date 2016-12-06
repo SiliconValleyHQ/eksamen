@@ -1,5 +1,7 @@
 package test;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Vector;
 
 /**
@@ -22,6 +24,26 @@ public class SpillRegler extends SpillData {
         else
             playerKing = BLACK_KING;
         Vector moves = new Vector();  // The legal jumps will be stored in this vector.
+        return sjekkOmDetErMuligeTrekk(player, row, col, playerKing, moves);
+    }
+
+    private FlyttBrikke[] sjekkOmDetErMuligeTrekk(int player, int row, int col, int playerKing, Vector moves) {
+        kanHoppe(player, row, col, playerKing, moves);
+        return flyttAvBrikke(moves);
+    }
+
+    private  FlyttBrikke[] flyttAvBrikke(Vector moves) {
+        if (moves.size() == 0)
+            return null;
+        else {
+            FlyttBrikke[] moveArray = new FlyttBrikke[moves.size()];
+            for (int i = 0; i < moves.size(); i++)
+                moveArray[i] = (FlyttBrikke)moves.elementAt(i);
+            return moveArray;
+        }
+    }
+
+    private void kanHoppe(int player, int row, int col, int playerKing, Vector moves) {
         if (board[row][col] == player || board[row][col] == playerKing) {
             if (canJump(player, row, col, row+1, col+1, row+2, col+2))
                 moves.addElement(new FlyttBrikke(row, col, row+2, col+2));
@@ -31,14 +53,6 @@ public class SpillRegler extends SpillData {
                 moves.addElement(new FlyttBrikke(row, col, row+2, col-2));
             if (canJump(player, row, col, row-1, col-1, row-2, col-2))
                 moves.addElement(new FlyttBrikke(row, col, row-2, col-2));
-        }
-        if (moves.size() == 0)
-            return null;
-        else {
-            FlyttBrikke[] moveArray = new FlyttBrikke[moves.size()];
-            for (int i = 0; i < moves.size(); i++)
-                moveArray[i] = (FlyttBrikke)moves.elementAt(i);
-            return moveArray;
         }
     }
 
@@ -70,16 +84,7 @@ public class SpillRegler extends SpillData {
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (board[row][col] == player || board[row][col] == playerKing) {
-                    if (canJump(player, row, col, row+1, col+1, row+2, col+2))
-                        moves.addElement(new FlyttBrikke(row, col, row+2, col+2));
-                    if (canJump(player, row, col, row-1, col+1, row-2, col+2))
-                        moves.addElement(new FlyttBrikke(row, col, row-2, col+2));
-                    if (canJump(player, row, col, row+1, col-1, row+2, col-2))
-                        moves.addElement(new FlyttBrikke(row, col, row+2, col-2));
-                    if (canJump(player, row, col, row-1, col-1, row-2, col-2))
-                        moves.addElement(new FlyttBrikke(row, col, row-2, col-2));
-                }
+                kanHoppe(player, row, col, playerKing, moves);
             }
         }
 
@@ -112,14 +117,7 @@ public class SpillRegler extends SpillData {
          an array just big enough to hold all the legal moves, copy the
          legal moves from the vector into the array, and return the array. */
 
-        if (moves.size() == 0)
-            return null;
-        else {
-            FlyttBrikke[] moveArray = new FlyttBrikke[moves.size()];
-            for (int i = 0; i < moves.size(); i++)
-                moveArray[i] = (FlyttBrikke)moves.elementAt(i);
-            return moveArray;
-        }
+        return flyttAvBrikke(moves);
 
     }  // end getLegalMoves
 
