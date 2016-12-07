@@ -11,7 +11,6 @@ public class DamSpill {
 
         new SpillRegler();
 
-
     }
 
 }

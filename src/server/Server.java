@@ -117,8 +117,4 @@ public class Server implements Runnable {
         return true;
     }
 
-    public int hentSpiller() {
-        return this.spiller;
-    }
-
 }
