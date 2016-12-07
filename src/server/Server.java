@@ -48,6 +48,8 @@ public class Server implements Runnable {
         thread = new Thread(this, "Server");
         thread.start(); //Starter en ny tråd
 
+
+
     }
 
     /*
@@ -68,11 +70,6 @@ public class Server implements Runnable {
         try {
             serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
             System.out.println("Opprettet server");
-            try {
-
-            } finally {
-                serverSocket.close();
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
