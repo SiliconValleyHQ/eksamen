@@ -17,6 +17,8 @@ public class Spiller extends Thread {
     BufferedReader input;
     PrintWriter output;
 
+    Spiller ns; //ns = nåværende spiller
+
     public Spiller(Socket socket, char mark) {
         this.socket = socket;
         this.mark = mark;
@@ -24,7 +26,7 @@ public class Spiller extends Thread {
         try {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(),true);
-            System.out.println("Velkommen " + mark);
+            System.out.println("Velkommen spiller " + mark);
         } catch (IOException e) {
             System.out.println("Tror motstanderen døde?..." + e);
         }
@@ -33,5 +35,7 @@ public class Spiller extends Thread {
     public void setMotstander(Spiller motstander) {
         this.motstander = motstander;
     }
+
+
 
 }

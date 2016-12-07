@@ -23,7 +23,7 @@ public class Server implements Runnable {
 
     private Scanner scanner = new Scanner(System.in);
     private Thread thread;
-    private Socket socket;
+    private Socket s;
     private DataOutputStream dos;
     private DataInputStream dis;
     private ServerSocket serverSocket;
@@ -34,7 +34,7 @@ public class Server implements Runnable {
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
      */
-    public Server() {
+    public Server() throws Exception {
         System.out.println("Skriv inn ip-adressen");
         ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
         System.out.println("skriv inn en port");
@@ -47,10 +47,25 @@ public class Server implements Runnable {
             oppstartAvNyServer();
         }
 
-        thread = new Thread(this, "Server");
-        thread.start(); //Starter en ny tråd
+        try {
+            while (true) {
+                new DamVindu();
+                System.out.println("Åpne GUI for spill");
+                Spiller spiller1 = new Spiller(serverSocket.accept(), '1');
+                System.out.println("kom spiller 2 hit?");
+                Spiller spiller2 = new Spiller(serverSocket.accept(), '2');
+                spiller1.setMotstander(spiller2);
+                spiller2.setMotstander(spiller1);
+                //Spiller ns = spiller1;
+                spiller1.start();
+                spiller2.start();
 
+                thread = new Thread(this, "Server");
+                thread.start(); //Starter en ny tråd
+            }
+        } finally {
 
+        }
 
     }
 
@@ -79,9 +94,9 @@ public class Server implements Runnable {
 
     /*
     * Denne metoden har som oppgave å se om det er noen som prøver å koble til den.
-    * Da vil godtatt = true, og en oppkobling skjer når socket = serverSocket.accepted();
+    * Da vil godtatt = true, og en oppkobling skjer når s = serverSocket.accepted();
      */
-    private void lytterEtterAnnenServer() {
+    public void lytterEtterAnnenServer() {
         Socket socket = null;
         try {
             socket = serverSocket.accept();
@@ -89,18 +104,6 @@ public class Server implements Runnable {
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
             System.out.println("Koblet til spiller");
-            new DamVindu(); //åpner Vinduet som spillet skal kjøres i
-            System.out.println("Åpne GUI for spill");
-            //Den som åpnet ny server blir spiller 1
-            try {
-                while (true) {
-                    Spiller spiller1 = new Spiller(socket, '1');
-                    spiller1.setMotstander(spiller2);
-                    spiller1.start();
-                }
-            } finally {
-                serverSocket.close();
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,25 +112,13 @@ public class Server implements Runnable {
     /*
     * Connect sender en forespørsel og ser om det er noe å koble til på oppgitt IP og Port.
      */
-    private boolean connect() {
+    public boolean connect() {
         try {
-            socket = new Socket(ip, port);
-            dos = new DataOutputStream(socket.getOutputStream());
-            dis = new DataInputStream(socket.getInputStream());
+            s = new Socket(ip, port);
+            dos = new DataOutputStream(s.getOutputStream());
+            dis = new DataInputStream(s.getInputStream());
             godtatt = true;
             System.out.println("Har opprettet forbindelse med serveren");
-            new DamVindu(); //åpner Vinduet som spillet skal kjøres i
-            System.out.println("Åpne GUI for spill");
-            //den som koblet til en server blir spiller 2
-            try {
-                while (true) {
-                    Spiller spiller2 = new Spiller(socket, '2');
-                    spiller2.setMotstander(spiller1);
-                    spiller2.start();
-                }
-            } finally {
-                serverSocket.close();
-            }
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
