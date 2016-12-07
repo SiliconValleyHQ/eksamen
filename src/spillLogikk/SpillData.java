@@ -24,7 +24,7 @@ public class SpillData {
     public void startNyttSpill() {
 
         SpillRegler settOppNyttSpill = new SpillRegler();
-        settOppNyttSpill.settOppNyttSpill();
+        //settOppNyttSpill.settOppNyttSpill();
 
         aktivSpiller = rodSpiller;
         SpillRegler alleLovligeTrekk = new SpillRegler();
