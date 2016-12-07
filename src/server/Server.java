@@ -104,6 +104,7 @@ public class Server implements Runnable {
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
             System.out.println("Koblet til spiller");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
