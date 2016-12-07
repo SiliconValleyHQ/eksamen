@@ -25,13 +25,14 @@ public class Server implements Runnable {
     private DataOutputStream dos;
     private DataInputStream dis;
     private ServerSocket serverSocket;
+    public int spiller;
 
     private boolean godtatt = false;
 
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
      */
-    public Server() {
+    private Server() {
         System.out.println("Skriv inn ip-adressen");
         ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
         System.out.println("skriv inn en port");
@@ -86,6 +87,9 @@ public class Server implements Runnable {
             System.out.println("Koblet til spiller");
             new DamVindu(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Åpne GUI for spill");
+            //Den som åpnet ny server blir spiller 1
+            System.out.println("Spiller satt til 1 på server");
+            this.spiller = 1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,11 +107,18 @@ public class Server implements Runnable {
             System.out.println("Har opprettet forbindelse med serveren");
             new DamVindu(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Åpne GUI for spill");
+            //den som koblet til en server blir spiller 2
+            System.out.println("Spiller satt til 2 på server");
+            this.spiller = 2;
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
         }
         return true;
+    }
+
+    public int hentSpiller() {
+        return this.spiller;
     }
 
 }

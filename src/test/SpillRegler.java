@@ -1,36 +1,60 @@
 package test;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Vector;
 
 /**
  * Created by Bror on 01.12.2016.
  */
-public class SpillRegler {
+public class SpillRegler extends SpillData {
 
-    SpillData cSpillData;
+    //public SpillData cSpillData;
 
-    public void setUpGame() {
-        // Set up the board with checkers in position for the beginning
-        // of a game.  Note that checkers can only be found in squares
-        // that satisfy  row % 2 == col % 2.  At the start of the game,
-        // all such squares in the first three rows contain black squares
-        // and all such squares in the last three rows contain red squares.
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if ( row % 2 == col % 2 ) {
-                    if (row < 3)
-                        cSpillData.board[row][col] = cSpillData.BLACK;
-                    else if (row > 4)
-                        cSpillData.board[row][col] = cSpillData.RED;
-                    else
-                        cSpillData.board[row][col] = cSpillData.EMPTY;
-                }
-                else {
-                    cSpillData.board[row][col] = cSpillData.EMPTY;
-                }
-            }
+    public FlyttBrikke[] getLegalJumpsFrom(int player, int row, int col) {
+        // Return a list of the legal jumps that the specified player can
+        // make starting from the specified row and column.  If no such
+        // jumps are possible, null is returned.  The logic is similar
+        // to the logic of the getLegalMoves() method.
+        if (player != RED && player != BLACK)
+            return null;
+        int playerKing;  // The constant representing a King belonging to player.
+        if (player == RED)
+            playerKing = RED_KING;
+        else
+            playerKing = BLACK_KING;
+        Vector moves = new Vector();  // The legal jumps will be stored in this vector.
+        return sjekkOmDetErMuligeTrekk(player, row, col, playerKing, moves);
+    }
+
+    private FlyttBrikke[] sjekkOmDetErMuligeTrekk(int player, int row, int col, int playerKing, Vector moves) {
+        kanHoppe(player, row, col, playerKing, moves);
+        return flyttAvBrikke(moves);
+    }
+
+    private  FlyttBrikke[] flyttAvBrikke(Vector moves) {
+        if (moves.size() == 0)
+            return null;
+        else {
+            FlyttBrikke[] moveArray = new FlyttBrikke[moves.size()];
+            for (int i = 0; i < moves.size(); i++)
+                moveArray[i] = (FlyttBrikke)moves.elementAt(i);
+            return moveArray;
         }
-    }  // end setUpGame()
+    }
+
+    private void kanHoppe(int player, int row, int col, int playerKing, Vector moves) {
+        if (board[row][col] == player || board[row][col] == playerKing) {
+            if (canJump(player, row, col, row+1, col+1, row+2, col+2))
+                moves.addElement(new FlyttBrikke(row, col, row+2, col+2));
+            if (canJump(player, row, col, row-1, col+1, row-2, col+2))
+                moves.addElement(new FlyttBrikke(row, col, row-2, col+2));
+            if (canJump(player, row, col, row+1, col-1, row+2, col-2))
+                moves.addElement(new FlyttBrikke(row, col, row+2, col-2));
+            if (canJump(player, row, col, row-1, col-1, row-2, col-2))
+                moves.addElement(new FlyttBrikke(row, col, row-2, col-2));
+        }
+    }
 
     public FlyttBrikke[] getLegalMoves(int player) {
         // Return an array containing all the legal CheckersMoves
@@ -41,14 +65,14 @@ public class SpillRegler {
         // entirely of jump moves or entirely of regular moves, since
         // if the player can jump, only jumps are legal moves.
 
-        if (player != cSpillData.RED && player != cSpillData.BLACK)
+        if (player != RED && player != BLACK)
             return null;
 
         int playerKing;  // The constant representing a King belonging to player.
-        if (player == cSpillData.RED)
-            playerKing = cSpillData.RED_KING;
+        if (player == RED)
+            playerKing = RED_KING;
         else
-            playerKing = cSpillData.BLACK_KING;
+            playerKing = BLACK_KING;
 
         Vector moves = new Vector();  // Moves will be stored in this vector.
 
@@ -60,16 +84,7 @@ public class SpillRegler {
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (cSpillData.board[row][col] == player || cSpillData.board[row][col] == playerKing) {
-                    if (canJump(player, row, col, row+1, col+1, row+2, col+2))
-                        moves.addElement(new FlyttBrikke(row, col, row+2, col+2));
-                    if (canJump(player, row, col, row-1, col+1, row-2, col+2))
-                        moves.addElement(new FlyttBrikke(row, col, row-2, col+2));
-                    if (canJump(player, row, col, row+1, col-1, row+2, col-2))
-                        moves.addElement(new FlyttBrikke(row, col, row+2, col-2));
-                    if (canJump(player, row, col, row-1, col-1, row-2, col-2))
-                        moves.addElement(new FlyttBrikke(row, col, row-2, col-2));
-                }
+                kanHoppe(player, row, col, playerKing, moves);
             }
         }
 
@@ -84,7 +99,7 @@ public class SpillRegler {
         if (moves.size() == 0) {
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
-                    if (cSpillData.board[row][col] == player || cSpillData.board[row][col] == playerKing) {
+                    if (board[row][col] == player || board[row][col] == playerKing) {
                         if (canMove(player,row,col,row+1,col+1))
                             moves.addElement(new FlyttBrikke(row,col,row+1,col+1));
                         if (canMove(player,row,col,row-1,col+1))
@@ -102,14 +117,7 @@ public class SpillRegler {
          an array just big enough to hold all the legal moves, copy the
          legal moves from the vector into the array, and return the array. */
 
-        if (moves.size() == 0)
-            return null;
-        else {
-            FlyttBrikke[] moveArray = new FlyttBrikke[moves.size()];
-            for (int i = 0; i < moves.size(); i++)
-                moveArray[i] = (FlyttBrikke)moves.elementAt(i);
-            return moveArray;
-        }
+        return flyttAvBrikke(moves);
 
     }  // end getLegalMoves
 
@@ -123,20 +131,20 @@ public class SpillRegler {
         if (r3 < 0 || r3 >= 8 || c3 < 0 || c3 >= 8)
             return false;  // (r3,c3) is off the board.
 
-        if (cSpillData.board[r3][c3] != cSpillData.EMPTY)
+        if (board[r3][c3] != EMPTY)
             return false;  // (r3,c3) already contains a piece.
 
-        if (player == cSpillData.RED) {
-            if (cSpillData.board[r1][c1] == cSpillData.RED && r3 > r1)
+        if (player == RED) {
+            if (board[r1][c1] == RED && r3 > r1)
                 return false;  // Regular red piece can only move  up.
-            if (cSpillData.board[r2][c2] != cSpillData.BLACK && cSpillData.board[r2][c2] != cSpillData.BLACK_KING)
+            if (board[r2][c2] != BLACK && board[r2][c2] != BLACK_KING)
                 return false;  // There is no black piece to jump.
             return true;  // The jump is legal.
         }
         else {
-            if (cSpillData.board[r1][c1] == cSpillData.BLACK && r3 < r1)
+            if (board[r1][c1] == BLACK && r3 < r1)
                 return false;  // Regular black piece can only move downn.
-            if (cSpillData.board[r2][c2] != cSpillData.RED && cSpillData.board[r2][c2] != cSpillData.RED_KING)
+            if (board[r2][c2] != RED && board[r2][c2] != RED_KING)
                 return false;  // There is no red piece to jump.
             return true;  // The jump is legal.
         }
@@ -152,16 +160,16 @@ public class SpillRegler {
         if (r2 < 0 || r2 >= 8 || c2 < 0 || c2 >= 8)
             return false;  // (r2,c2) is off the board.
 
-        if (cSpillData.board[r2][c2] != cSpillData.EMPTY)
+        if (board[r2][c2] != EMPTY)
             return false;  // (r2,c2) already contains a piece.
 
-        if (player == cSpillData.RED) {
-            if (cSpillData.board[r1][c1] == cSpillData.RED && r2 > r1)
+        if (player == RED) {
+            if (board[r1][c1] == RED && r2 > r1)
                 return false;  // Regualr red piece can only move down.
             return true;  // The move is legal.
         }
         else {
-            if (cSpillData.board[r1][c1] == cSpillData.BLACK && r2 < r1)
+            if (board[r1][c1] == BLACK && r2 < r1)
                 return false;  // Regular black piece can only move up.
             return true;  // The move is legal.
         }

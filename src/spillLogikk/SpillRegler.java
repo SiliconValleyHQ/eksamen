@@ -1,38 +1,33 @@
 package spillLogikk;
 
-import static com.sun.org.apache.xpath.internal.compiler.OpCodes.EMPTY;
-import static java.awt.Color.*;
+import server.Server;
 
 /**
  * Created by Bror on 30.11.2016.
  */
 public class SpillRegler {
 
-    public void settOppNyttSpill() {
+    //TODO Få hentet variablen spiller fra server klassen.
+    Server sattSpiller = new Server();
+    int spiller = sattSpiller.hentSpiller();
 
-        int[][] spillBrett = new SpillData().spillBrett;
+    public SpillRegler() {
+        definerSpiller();
+    }
 
-        /*
-        * Denne for loopen skal sørge for at halvparten av brikkene
-        * skal være svarte og andre halvparten røde.
-        * De første to radene (rad < 3) skal brikkene være svarte, og
-        * radene rad > 4 skal brikkene være røde.
-        */
-        for (int rad = 0; rad < 8; rad++) {
-            for (int kolonne = 0; kolonne < 8; kolonne++) {
-                if (rad % 2 == kolonne % 2) {
-                    if (rad < 3) {
-                        //spillBrett[rad][kolonne] = BLACK;
-                    } else if (rad > 4) {
-                        //spillBrett[rad][kolonne] = RED;
-                    } else {
-                        spillBrett[rad][kolonne] = EMPTY;
-                    }
-                } else {
-                    spillBrett[rad][kolonne] = EMPTY;
-                }
-            }
+    public int ROD = 1;
+    public int SVART = 2;
+
+    public void definerSpiller() {
+        if (spiller == 1) {
+            spiller = ROD;
+            System.out.println("Spiller er rød");
+        } else if (spiller == 2) {
+            spiller = SVART;
+            System.out.println("Spiller er svart");
+        } else {
+            System.out.println("Noe gikk galt, under definering av spillere.");
         }
-    } //Oppsettet av spillet er ferdig
+    }
 
 }
