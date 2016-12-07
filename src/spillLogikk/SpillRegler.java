@@ -8,10 +8,9 @@ import server.Server;
 public class SpillRegler {
 
     //TODO Få hentet variablen spiller fra server klassen.
-    Server sattSpiller = new Server();
-    int spiller = sattSpiller.hentSpiller();
 
-    public SpillRegler() {
+
+    /*public SpillRegler() {
         definerSpiller();
     }
 
@@ -28,6 +27,6 @@ public class SpillRegler {
         } else {
             System.out.println("Noe gikk galt, under definering av spillere.");
         }
-    }
+    }*/
 
 }
