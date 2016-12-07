@@ -9,12 +9,12 @@ package gui;
 
     import javax.swing.JPanel;
 
-    public class Rute extends JPanel implements MouseListener {
+    public class RuteMatrise extends JPanel implements MouseListener {
 
         private int position;
         final String[] kolonnebokstaver = { "A", "B", "C", "D", "E", "F", "G", "H"};
 
-        public Rute(int position) {
+        public RuteMatrise(int position) {
             this.position = position;
             setBackground(calculateColor(position));
             addMouseListener(this);

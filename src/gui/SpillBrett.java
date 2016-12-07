@@ -12,7 +12,7 @@ public class SpillBrett extends JPanel {
             //setBackground(Color.BLUE);
             setLayout(new GridLayout(8,0 /*, 5, 5 */ ));
             for (int i = 0; i<64; i++) {
-                add(new Rute(i));
+                add(new RuteMatrise(i));
             }
         }
 

@@ -9,8 +9,6 @@ public class DamSpill {
 
     public DamSpill() {
 
-        new Rutebrett();
-        new Brikker();
         new SpillRegler();
 
 

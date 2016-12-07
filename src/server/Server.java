@@ -32,7 +32,7 @@ public class Server implements Runnable {
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
      */
-    private Server() {
+    public Server() {
         System.out.println("Skriv inn ip-adressen");
         ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
         System.out.println("skriv inn en port");

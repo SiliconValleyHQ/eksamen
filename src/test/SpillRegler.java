@@ -1,7 +1,5 @@
 package test;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Vector;
 
 /**
