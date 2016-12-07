@@ -30,4 +30,8 @@ public class Spiller extends Thread {
         }
     }
 
+    public void setMotstander(Spiller motstander) {
+        this.motstander = motstander;
+    }
+
 }

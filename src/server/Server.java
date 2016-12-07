@@ -1,6 +1,8 @@
 package server;
 
 import gui.DamVindu;
+import spillLogikk.Spiller;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -90,8 +92,15 @@ public class Server implements Runnable {
             new DamVindu(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Åpne GUI for spill");
             //Den som åpnet ny server blir spiller 1
-            System.out.println("Spiller satt til 1 på server");
-            this.spiller = 1;
+            try {
+                while (true) {
+                    Spiller spiller1 = new Spiller(socket, '1');
+                    spiller1.setMotstander(spiller2);
+                    spiller1.start();
+                }
+            } finally {
+                serverSocket.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,8 +119,15 @@ public class Server implements Runnable {
             new DamVindu(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Åpne GUI for spill");
             //den som koblet til en server blir spiller 2
-            System.out.println("Spiller satt til 2 på server");
-            this.spiller = 2;
+            try {
+                while (true) {
+                    Spiller spiller2 = new Spiller(socket, '2');
+                    spiller2.setMotstander(spiller1);
+                    spiller2.start();
+                }
+            } finally {
+                serverSocket.close();
+            }
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
