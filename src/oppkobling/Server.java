@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Created by Bror on 18.11.2016.
  */
 
-public class Server {
+public class Server implements Runnable {
 
     /*
     * Variabler som serveren trenger, satt til noen standardverdier.
@@ -32,8 +32,8 @@ public class Server {
     private boolean godtatt = false;
 
     /*
-    * Enkel oppkobling som parer opp med Klient som kobler seg til
-     */
+    Enkel oppkobling som parer opp med Klient som kobler seg til
+
     public Server() throws Exception {
         ServerSocket serverSocket = this.serverSocket;
         System.out.println("Starter oppkobling");
@@ -52,12 +52,12 @@ public class Server {
             serverSocket.close();
         }
 
-    }
+    }*/
 
 
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
-
+    */
     public Server() throws Exception {
         System.out.println("Skriv inn ip-adressen");
         ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
@@ -92,37 +92,35 @@ public class Server {
         }
 
     }
-    */
 
     /*
     * Hvis tilkoblingen ikke er mulig (ikke godtatt) vil programmet starte lytterEtterAnnenServer()
      */
-    /*public void run() {
+    public void run() {
         while (true) {
             if (!godtatt) {
                 lytterEtterAnnenServer();
             }
         }
     }
-    */
 
     /*
     * Denne metoden starter en ny ServerSocket på oppgitt port og IP-adresse
      */
-    /*private void oppstartAvNyServer() {
+    private void oppstartAvNyServer() {
         try {
             serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
             System.out.println("Opprettet oppkobling");
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     /*
     * Denne metoden har som oppgave å se om det er noen som prøver å koble til den.
     * Da vil godtatt = true, og en oppkobling skjer når s = serverSocket.accepted();
      */
-    /*public void lytterEtterAnnenServer() {
+    public void lytterEtterAnnenServer() {
         Socket socket = null;
         try {
             socket = serverSocket.accept();
@@ -134,12 +132,12 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     /*
     * Connect sender en forespørsel og ser om det er noe å koble til på oppgitt IP og Port.
      */
-    /*public boolean connect() {
+    public boolean connect() {
         try {
             s = new Socket(ip, port);
             dos = new DataOutputStream(s.getOutputStream());
@@ -151,6 +149,6 @@ public class Server {
             return false;
         }
         return true;
-    }*/
+    }
 
 }

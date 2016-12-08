@@ -9,7 +9,7 @@ import java.net.Socket;
 /**
  * Created by Bror on 08.12.2016.
  */
-public class Klient {
+/*public class Klient {
 
     private PrintWriter output;
     private BufferedReader input;
@@ -35,4 +35,4 @@ public class Klient {
         }
     }
 
-}
+}*/
