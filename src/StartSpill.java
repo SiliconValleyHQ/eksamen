@@ -1,11 +1,8 @@
-import server.Server;
-
-import java.io.IOException;
+import oppkobling.Server;
 
 public class StartSpill {
 
-    public static void main(String[] args) throws IOException {
-        //new conn(args);
+    public static void main(String[] args) throws Exception {
         new Server();
     }
 
