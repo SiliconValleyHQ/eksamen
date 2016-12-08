@@ -1,7 +1,7 @@
-package gamlefiler;
+/*package gamlefiler;
 
 import gui.DamVindu;
-import server.ServerGame;
+//import server.ServerGame;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,19 +9,19 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.Scanner;*/
 
 /**
  * Created by Bror on 18.11.2016.
  */
 
-public class Server implements Runnable {
+//public class Server implements Runnable {
 
     /*
     * Variabler som serveren trenger, satt til noen standardverdier.
     * Sortert etter hva slags type variabel det er.
      */
-    public String ip = "127.0.0.1";
+    /*public String ip = "127.0.0.1";
 
     public int port = 22222;
 
@@ -33,22 +33,22 @@ public class Server implements Runnable {
     private ServerSocket serverSocket;
     public int player = 0;
 
-    private boolean godtatt = false;
+    private boolean godtatt = false;*/
 
     /*
     * Hold server game information
     */
 
-    public ServerGame getServerGame() {
+    /*public ServerGame getServerGame() {
         return serverGame;
-    }
+    }*/
 
-    ServerGame serverGame = new ServerGame(); //now you have where to store game related information
+    //ServerGame serverGame = new ServerGame(); //now you have where to store game related information
 
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
      */
-    public Server() {
+    /*public Server() {
         System.out.println("Skriv inn ip-adressen");
         ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
         System.out.println("skriv inn en port");
@@ -64,36 +64,36 @@ public class Server implements Runnable {
         thread = new Thread(this, "Server");
         thread.start(); //Starter en ny tråd
 
-    }
+    }*/
 
     /*
     * Hvis tilkoblingen ikke er mulig (ikke godtatt) vil programmet starte lytterEtterAnnenServer()
      */
-    public void run() {
+    /*public void run() {
         while (true) {
             if (!godtatt) {
                 lytterEtterAnnenServer();
             }
         }
-    }
+    }*/
 
     /*
     * Denne metoden starter en ny ServerSocket på oppgitt port og IP-adresse
      */
-    private void oppstartAvNyServer() {
+    /*private void oppstartAvNyServer() {
         try {
             serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
             System.out.println("Opprettet server");
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /*
     * Denne metoden har som oppgave å se om det er noen som prøver å koble til den.
     * Da vil godtatt = true, og en oppkobling skjer når socket = serverSocket.accepted();
      */
-    private void lytterEtterAnnenServer() {
+    /*private void lytterEtterAnnenServer() {
         Socket socket = null;
         try {
             socket = serverSocket.accept();
@@ -109,12 +109,12 @@ public class Server implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /*
     * Connect sender en forespørsel og ser om det er noe å koble til på oppgitt IP og Port.
      */
-    private boolean connect() {
+    /*private boolean connect() {
         try {
             socket = new Socket(ip, port);
             dos = new DataOutputStream(socket.getOutputStream());
@@ -137,4 +137,4 @@ public class Server implements Runnable {
         return this.player;
     }
 
-}
+}*/

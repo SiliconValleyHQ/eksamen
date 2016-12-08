@@ -1,8 +1,6 @@
 package Kommunikasjon;
 
-
-import javax.security.auth.login.AppConfigurationEntry;
-import javax.security.auth.login.Configuration;
+import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
@@ -14,16 +12,32 @@ public class Server extends Thread {
     public static final int SERVER_TICK = 10;
     private ServerSocket serverSocket;
     private Konfigurering cfg;
-    private ServerGame game;
+    //private ServerGame game;
 
     public Server(int portNummer) {
         this.cfg = new Konfigurering(portNummer);
     }
 
-    public static int getServerTick {
-
+    public int getPortNummer() {
+        return cfg.getPortNummer();
     }
 
+    public void lagServer() {
+        try {
+            setServerSocket(new ServerSocket(getPortNummer()));
+            System.out.println("startet server på " + getPortNummer());
+        } catch (IOException e) {
+            System.err.println("Kunne ikke lytte på port " + getPortNummer());
+        }
+    }
+
+    public void setServerSocket(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
 
     public void sleep() {
         try {
@@ -37,4 +51,7 @@ public class Server extends Thread {
         return SERVER_TICK;
     }
 
+    public Object getKonfigurering() {
+        return cfg;
+    }
 }

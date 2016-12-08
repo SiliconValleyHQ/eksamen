@@ -4,16 +4,16 @@ package Kommunikasjon;
  * Created by Bror on 08.12.2016.
  * A class to hold Kommunikasjon game information.
  */
-public class ServerGame {
+/*public class ServerGame {
     boolean player1turn = false;
     boolean player2turn = false;
 
 
 
     public ServerGame()
-    {
+    {*/
         /*Make each game start with player1Turn */
-        player1Turn = true;
+    /*    player1Turn = true;
     }
 
     public void turnMade()
@@ -33,4 +33,4 @@ public class ServerGame {
     }
 
 
-}
+}*/

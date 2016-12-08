@@ -7,7 +7,7 @@ import Kommunikasjon.Server;
  */
 public class SpillRegler {
 
-    //TODO Få hentet variablen player fra Kommunikasjon klassen.
+    /*//TODO Få hentet variablen player fra Kommunikasjon klassen.
     Server sattSpiller = new Server();
     int spiller = sattSpiller.hentSpiller();
 
@@ -28,6 +28,6 @@ public class SpillRegler {
         } else {
             System.out.println("Noe gikk galt, under definering av spillere.");
         }
-    }
+    }*/
 
 }

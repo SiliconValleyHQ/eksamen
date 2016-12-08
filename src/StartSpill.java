@@ -3,7 +3,7 @@ import Kommunikasjon.Server;
 public class StartSpill {
 
     public static void main(String[] args) {
-        new Server();
+        new Server(22222);
     }
 
 }
