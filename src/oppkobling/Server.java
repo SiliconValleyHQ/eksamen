@@ -26,7 +26,7 @@ public class Server implements Runnable {
     private Socket s;
     private DataOutputStream dos;
     private DataInputStream dis;
-    private ServerSocket serverSocket = new ServerSocket(port);
+    private ServerSocket serverSocket;
     public int spiller;
 
     private boolean godtatt = false;
