@@ -11,13 +11,13 @@ import java.net.Socket;
  */
 public class Spiller extends Thread {
 
+    public static Spiller ns;   //ns = nåværende spiller, denne er static
+                                // fordi alle instanser av spiller 1 skal gjøre det samme
     char mark;
     Spiller motstander;
     Socket socket;
     BufferedReader input;
     PrintWriter output;
-
-    Spiller ns; //ns = nåværende spiller
 
     public Spiller(Socket socket, char mark) {
         this.socket = socket;

@@ -32,6 +32,7 @@ public class DamVindu extends Canvas implements ActionListener, MouseListener  {
         vindu.setFont(new Font("verdana", Font.BOLD, 16));
         vindu.setSize(600,450);
         vindu.setVisible(true);
+        vindu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
 

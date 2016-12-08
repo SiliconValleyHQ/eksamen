@@ -1,4 +1,4 @@
-import server.Server;
+import oppkobling.Server;
 
 public class StartSpill {
 

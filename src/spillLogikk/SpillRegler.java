@@ -1,13 +1,11 @@
 package spillLogikk;
 
-import server.Server;
-
 /**
  * Created by Bror on 30.11.2016.
  */
 public class SpillRegler {
 
-    //TODO Få hentet variablen spiller fra server klassen.
+    //TODO Få hentet variablen spiller fra oppkobling klassen.
 
 
     /*public SpillRegler() {
