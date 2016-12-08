@@ -1,8 +1,14 @@
-package server;
+package gamlefiler;
 
 import gui.DamVindu;
-import java.io.*;
-import java.net.*;
+import server.ServerGame;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Scanner;
 
 /**
@@ -25,9 +31,19 @@ public class Server implements Runnable {
     private DataOutputStream dos;
     private DataInputStream dis;
     private ServerSocket serverSocket;
-    public int spiller;
+    public int player = 0;
 
     private boolean godtatt = false;
+
+    /*
+    * Hold server game information
+    */
+
+    public ServerGame getServerGame() {
+        return serverGame;
+    }
+
+    ServerGame serverGame = new ServerGame(); //now you have where to store game related information
 
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
@@ -84,12 +100,12 @@ public class Server implements Runnable {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             godtatt = true;
-            System.out.println("Koblet til spiller");
+            System.out.println("Koblet til player");
             new DamVindu(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Åpne GUI for spill");
-            //Den som åpnet ny server blir spiller 1
+            //Den som åpnet ny server blir player 1
             System.out.println("Spiller satt til 1 på server");
-            this.spiller = 1;
+            this.player = 1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,9 +123,9 @@ public class Server implements Runnable {
             System.out.println("Har opprettet forbindelse med serveren");
             new DamVindu(); //åpner Vinduet som spillet skal kjøres i
             System.out.println("Åpne GUI for spill");
-            //den som koblet til en server blir spiller 2
+            //den som koblet til en server blir player 2
             System.out.println("Spiller satt til 2 på server");
-            this.spiller = 2;
+            this.player = 2;
         } catch (IOException e) {
             System.out.println("Kunne ikke koble til: " + ip + " " + port + " || Oppretter en ny server");
             return false;
@@ -118,7 +134,7 @@ public class Server implements Runnable {
     }
 
     public int hentSpiller() {
-        return this.spiller;
+        return this.player;
     }
 
 }
