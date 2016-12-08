@@ -11,58 +11,58 @@ import java.awt.event.MouseListener;
  * Created by mariuswetterlin on 30.11.2016.
  */
 
-public class DamVindu extends Canvas implements ActionListener, MouseListener  {
+public class DamVindu extends Canvas implements ActionListener, MouseListener {
 
-    private Button giOppKnapp;
+	private Button giOppKnapp;
 
-    public DamVindu() {
+	public DamVindu() {
 
-        usualStuff();
-        new DamSpill();
+		usualStuff();
+		new DamSpill();
 
-        giOppKnapp = new Button("Gi opp");
-        giOppKnapp.addActionListener(this);
-    }
+		giOppKnapp = new Button("Gi opp");
+		giOppKnapp.addActionListener(this);
+	}
 
-    private void usualStuff() {
-        JFrame vindu = new JFrame();
-        vindu.add(new SpillBrett());
-        vindu.setBackground(Color.RED);
-        vindu.addMouseListener(this);
-        vindu.setFont(new Font("verdana", Font.BOLD, 16));
-        vindu.setSize(600,450);
-        vindu.setVisible(true);
-    }
+	private void usualStuff() {
+		JFrame vindu = new JFrame();
+		vindu.setTitle("spiller nr ");
+		vindu.add(new SpillBrett());
+		vindu.setBackground(Color.RED);
+		vindu.addMouseListener(this);
+		vindu.setFont(new Font("verdana", Font.BOLD, 16));
+		vindu.setSize(600, 600);
+		vindu.setVisible(true);
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+	}
 
-    }
+	@Override
+	public void mouseClicked(MouseEvent e) {
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
+	}
 
-    }
+	@Override
+	public void mousePressed(MouseEvent e) {
 
-    @Override
-    public void mousePressed(MouseEvent e) {
+	}
 
-    }
+	@Override
+	public void mouseReleased(MouseEvent e) {
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
+	}
 
-    }
+	@Override
+	public void mouseEntered(MouseEvent e) {
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
+	}
 
-    }
+	@Override
+	public void mouseExited(MouseEvent e) {
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+	}
 
 }
