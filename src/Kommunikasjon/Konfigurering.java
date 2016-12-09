@@ -1,41 +1,38 @@
 package Kommunikasjon;
 
 /**
- * Created by Bror on 08.12.2016.
+ * Created by mariuswetterlin on 08.12.2016.
  */
-public class Konfigurering
-{
-    private String hostNavn;
-    private int portNummer;
+public class Konfigurering {
 
-    public Konfigurering(int portNummer)
-    {
-        this.portNummer = portNummer;
-    }
+	private String ip = "Localhost";
+	private int port = 22222;
 
-    public Konfigurering(String hostNavn, int portNummer)
-    {
-        this.portNummer = portNummer;
-        this.hostNavn = hostNavn;
-    }
+	Konfigurering(String ip, int port) {
+		this.ip = ip;
+		this.port = port;
+	}
 
-    public void setHostNavn(String hostNavn)
-    {
-        this.hostNavn = hostNavn;
-    }
+	Konfigurering(int port) {
+		this.port = port;
+	}
 
-    public String getHostNavn()
-    {
-        return hostNavn;
-    }
+	private void setIp(String ip) {
+		this.ip = ip;
+		System.out.println(ip);
+	}
 
-    public void setPortNummer(int portNummer)
-    {
-        this.portNummer = portNummer;
-    }
+	private String getIp() {
+		return ip;
+	}
 
-    public int getPortNummer()
-    {
-        return portNummer;
-    }
+	private void setPort(int port) {
+		this.port = port;
+		System.out.println(port);
+	}
+
+	private int getPort() {
+		return port;
+	}
+
 }

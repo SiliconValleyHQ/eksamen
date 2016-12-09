@@ -1,20 +1,14 @@
-<<<<<<< HEAD
-import oppkobling.Server;
 
-public class StartSpill {
-
-    public static void main(String[] args) throws Exception {
-        new Server();
-=======
 import Kommunikasjon.Klient;
+import Kommunikasjon.Server;
 
 import java.io.IOException;
 
 public class StartSpill {
 
     public static void main(String[] args) throws IOException {
-        new Klient();
->>>>>>> bror2
+        new Server(22222);
+        new Klient("localhost", 2222);
     }
 
 }
