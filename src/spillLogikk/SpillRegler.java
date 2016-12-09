@@ -1,12 +1,23 @@
 package spillLogikk;
 
+<<<<<<< HEAD
+=======
+import Kommunikasjon.Server;
+
+>>>>>>> bror2
 /**
  * Created by Bror on 30.11.2016.
  */
 public class SpillRegler {
 
+<<<<<<< HEAD
     //TODO Få hentet variablen spiller fra oppkobling klassen.
 
+=======
+    /*//TODO Få hentet variablen player fra Kommunikasjon klassen.
+    Server sattSpiller = new Server();
+    int spiller = sattSpiller.hentSpiller();
+>>>>>>> bror2
 
     /*public SpillRegler() {
         definerSpiller();
