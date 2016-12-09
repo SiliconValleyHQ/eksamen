@@ -1,57 +1,74 @@
 package Kommunikasjon;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Created by Bror on 18.11.2016.
  */
 
-public class Server extends Thread {
+public class Server implements Runnable {
 
-    public static final int SERVER_TICK = 10;
+    private Scanner scanner = new Scanner(System.in);
+    private Thread thread;
+    private Socket socket;
     private ServerSocket serverSocket;
-    private Konfigurering cfg;
-    //private ServerGame game;
+    private DataInputStream dis;
+    private DataOutputStream dos;
 
-    public Server(int portNummer) {
-        this.cfg = new Konfigurering(portNummer);
+    int port = 22222;
+    String ip = "127.0.0.1";
+
+    boolean forbindelse = new Klient().forbindelse();
+
+
+    public Server() throws IOException {
+
+        System.out.println("skriv inn porten du ønsker serveren skal være på");
+        port = scanner.nextInt(); //Henter inn innskrevet portnr
+
+        ServerSocket serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
+        System.out.println("Opprettet server på port " + port);
+        
+        if (!forbindelse) {
+            nyServerSocket();
+        }
+
+        thread = new Thread( this, "Server");
+        thread.start();
+
     }
 
-    public int getPortNummer() {
-        return cfg.getPortNummer();
+    private void nyServerSocket() {
+        while (true) {
+            try {
+                serverSocket = new ServerSocket(port, 8, InetAddress.getByName(ip));
+                System.out.println("hallo?");
+            } catch (Exception e) {
+                continue;
+            }
+        }
     }
 
-    public void lagServer() {
+    public void run() {
+        while (true) {
+            //lyttEtterKlient();
+        }
+    }
+
+    /*private void lyttEtterKlient() {
+        Klient klientSocket = null;
         try {
-            setServerSocket(new ServerSocket(getPortNummer()));
-            System.out.println("startet server på " + getPortNummer());
+            klientSocket = new serverSocket.accept();
+            dos = new DataOutputStream(klientSocket.getDataOutputStream());
+            dis = new DataInputStream(klientSocket.getDataInputStream());
         } catch (IOException e) {
-            System.err.println("Kunne ikke lytte på port " + getPortNummer());
+            e.printStackTrace();
         }
-    }
-
-    public void setServerSocket(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
-    }
-
-    public ServerSocket getServerSocket() {
-        return serverSocket;
-    }
-
-    public void sleep() {
-        try {
-            Thread.sleep(getServerTick());
-        } catch (InterruptedException e) {
-            System.err.println("Server thread interruption!" + e);
-        }
-    }
-
-    public static int getServerTick() {
-        return SERVER_TICK;
-    }
-
-    public Object getKonfigurering() {
-        return cfg;
-    }
+    }*/
 }

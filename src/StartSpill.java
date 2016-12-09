@@ -1,9 +1,11 @@
-import Kommunikasjon.Server;
+import Kommunikasjon.Klient;
+
+import java.io.IOException;
 
 public class StartSpill {
 
-    public static void main(String[] args) {
-        new Server(22222);
+    public static void main(String[] args) throws IOException {
+        new Klient();
     }
 
 }

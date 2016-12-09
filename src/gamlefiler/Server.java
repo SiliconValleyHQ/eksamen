@@ -39,11 +39,11 @@ import java.util.Scanner;*/
     * Hold server game information
     */
 
-    /*public ServerGame getServerGame() {
+    /*public KommunikasjonsModul getServerGame() {
         return serverGame;
     }*/
 
-    //ServerGame serverGame = new ServerGame(); //now you have where to store game related information
+    //KommunikasjonsModul serverGame = new KommunikasjonsModul(); //now you have where to store game related information
 
     /*
     * Server() har hovedansvaret for det som skjer med serveren.
