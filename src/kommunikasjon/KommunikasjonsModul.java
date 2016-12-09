@@ -16,6 +16,7 @@ public class KommunikasjonsModul implements Runnable {
 
     public KommunikasjonsModul(Socket klientSocket) {
         this.socket = klientSocket;
+        System.out.println("hallo?");
     }
 
     @Override

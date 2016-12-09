@@ -1,5 +1,7 @@
 package kommunikasjon;
 
+import gui.DamVindu;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by Bror on 08.12.2016.
  */
-public class Klient implements Runnable {
+public class Klient {
 
     int port = 22222;
     String ip = "127.0.0.1";
@@ -19,7 +21,7 @@ public class Klient implements Runnable {
 
     public Klient() throws IOException {
         forbindelse();
-        //new DamVindu();
+        new DamVindu();
     }
 
     public static void main (String[] args) {
@@ -50,18 +52,12 @@ public class Klient implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            //hva skal stå her?;
-        }
-    }
-
     public DataInputStream getDataInputStream() {
         return dis;
     }
 
     public DataOutputStream getDataOutputStream() {
+
         return dos;
     }
 
