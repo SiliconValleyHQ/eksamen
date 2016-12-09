@@ -13,38 +13,31 @@ public class KommunikasjonsModul {
 	private PrintWriter ut;
 	private BufferedReader inn;
 
-	private KommunikasjonsModul(Socket s)
-	{
+	private KommunikasjonsModul(Socket s) {
 		this.s = s;
 	}
 
-	private void setSocket(Socket s)
-	{
+	private void setSocket(Socket s) {
 		this.s = s;
 	}
 
-	private Socket getSocket()
-	{
+	private Socket getSocket() {
 		return s;
 	}
 
-	private void setUt(PrintWriter ut)
-	{
+	private void setUt(PrintWriter ut) {
 		this.ut = ut;
 	}
 
-	private PrintWriter getUt()
-	{
+	private PrintWriter getUt() {
 		return ut;
 	}
 
-	private void setInn(BufferedReader inn)
-	{
+	private void setInn(BufferedReader inn) {
 		this.inn = inn;
 	}
 
-	private BufferedReader getInn()
-	{
+	private BufferedReader getInn() {
 		return inn;
 	}
 

@@ -13,13 +13,11 @@ public class Klient {
 		this.konfig = new Konfigurering(ip, port);
 	}
 
-	private void setKonfigurering(Konfigurering konfig)
-	{
+	private void setKonfigurering(Konfigurering konfig) {
 		this.konfig = konfig;
 	}
 
-	private Konfigurering getKonfigurering()
-	{
+	private Konfigurering getKonfigurering() {
 		return konfig;
 	}
 
