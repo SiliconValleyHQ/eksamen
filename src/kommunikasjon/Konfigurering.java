@@ -1,4 +1,4 @@
-package Kommunikasjon;
+package kommunikasjon;
 
 /**
  * Created by Bror on 08.12.2016.

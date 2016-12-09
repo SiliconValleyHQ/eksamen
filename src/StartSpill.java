@@ -1,4 +1,4 @@
-import Kommunikasjon.Klient;
+import kommunikasjon.Klient;
 
 import java.io.IOException;
 
