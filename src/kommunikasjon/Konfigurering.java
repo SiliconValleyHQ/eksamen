@@ -3,6 +3,12 @@ package kommunikasjon;
 /**
  * Created by Bror on 08.12.2016.
  */
+
+
+/*
+Brukes ikke for øyeblikket
+ */
+
 public class Konfigurering
 {
     private String hostNavn;
