@@ -1,8 +1,6 @@
 package kommunikasjon;
 
-//import gui.DamVindu;
-
-import gui.SpillBrett;
+import gui.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by Bror on 08.12.2016.
  */
-public class Klient {
+public class Klient implements Runnable {
 
     int port = 22222;
     String ip = "127.0.0.1";
@@ -21,20 +19,16 @@ public class Klient {
     public Thread thread;
     private Scanner scanner = new Scanner(System.in);
 
-    public Klient() throws IOException {
+    public Klient() throws IOException, ClassNotFoundException {
+        new CheckersCanvas();
         forbindelse();
-        //new DamVindu();
     }
 
-    public static void main (String[] args) {
-        try {
-            new Klient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void main (String[] args) throws IOException, ClassNotFoundException {
+        new Klient();
     }
 
-    public boolean forbindelse() {
+    public boolean forbindelse() throws ClassNotFoundException {
             System.out.println("boooom");
             try {
                 System.out.println("Skriv inn ip-adressen til serveren");
@@ -44,22 +38,17 @@ public class Klient {
                 socket = new Socket(ip, port);
                 dos = new DataOutputStream(socket.getOutputStream());
 
-
-
                 ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-                SpillBrett minMottatMail = (SpillBrett) objectInputStream.readObject();
-                minMottatMail.hvemErJeg();
-
-
+                System.out.println("Jeg kjører");
+                CheckersCanvas spillStatus = (CheckersCanvas) objectInputStream.readObject();
+                spillStatus.checkersCanvas();
 
                 dis = new DataInputStream(socket.getInputStream());
-                thread = new Thread();
                 System.out.println("greaaaaat success?");
+                thread = new Thread();
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
         return true;
 
@@ -70,9 +59,16 @@ public class Klient {
     }
 
     public DataOutputStream getDataOutputStream() {
-
         return dos;
     }
 
 
+    @Override
+    public void run() {
+        try {
+            new KommunikasjonsModul(socket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

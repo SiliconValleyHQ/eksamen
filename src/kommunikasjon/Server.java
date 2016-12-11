@@ -40,7 +40,7 @@ public class Server {
             System.out.println("Venter klienter...");
             while ((socket = serverSocket.accept()) != null) {
                 new KommunikasjonsModul(socket);
-                System.out.println("Ny forespørsel!");
+                System.out.println("Ny spiller koblet til!");
             }
         } catch (Exception e) {
             e.printStackTrace();

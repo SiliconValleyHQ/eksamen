@@ -26,7 +26,7 @@ public class DamVindu extends Canvas implements ActionListener, MouseListener  {
 
     private void usualStuff() {
         JFrame vindu = new JFrame();
-        vindu.add(new SpillBrett());
+        vindu.add(new DamSpill());
         vindu.setBackground(Color.RED);
         vindu.addMouseListener(this);
         vindu.setFont(new Font("verdana", Font.BOLD, 16));

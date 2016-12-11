@@ -1,5 +1,8 @@
 package kommunikasjon;
 
+import gui.Checkers;
+import gui.CheckersCanvas;
+import gui.DamSpill;
 import gui.SpillBrett;
 
 import java.io.BufferedReader;
@@ -26,14 +29,12 @@ public class KommunikasjonsModul implements Runnable {
         this.socket = klientSocket;
 
 
-        //mail skal erstattes med Spillbrett som inneholder ALT, hensikten er å sende status på hele brettet.
-        SpillBrett mittSpillbrett = new SpillBrett();
+        //Dette skal i teori kunne sende spillet fra en klient til en annen.
+        CheckersCanvas spillBrett = new CheckersCanvas();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(klientSocket.getOutputStream());
-        objectOutputStream.writeObject(mittSpillbrett);
+        objectOutputStream.writeObject(spillBrett);
 
         objectOutputStream.close();
-
-
 
 
     }

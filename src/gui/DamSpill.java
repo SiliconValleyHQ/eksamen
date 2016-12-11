@@ -9,7 +9,6 @@ public class DamSpill {
 
     public DamSpill() {
 
-        new SpillRegler();
 
 
     }
