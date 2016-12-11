@@ -1,15 +1,8 @@
-package kommunikasjon;
+package serverKlient;
 
-import gui.Checkers;
-import gui.CheckersCanvas;
-import gui.DamSpill;
-import gui.SpillBrett;
+import spill.DamSpill;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -30,7 +23,7 @@ public class KommunikasjonsModul implements Runnable {
 
 
         //Dette skal i teori kunne sende spillet fra en klient til en annen.
-        CheckersCanvas spillBrett = new CheckersCanvas();
+        DamSpill spillBrett = new DamSpill();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(klientSocket.getOutputStream());
         objectOutputStream.writeObject(spillBrett);
 
@@ -39,7 +32,7 @@ public class KommunikasjonsModul implements Runnable {
 
     }
 
-    public void utfortTrekk() {
+    public void utfortTrekk() throws Exception {
         spiller1tur = !spiller1tur;
         spiller2tur = !spiller2tur;
 
@@ -53,9 +46,9 @@ public class KommunikasjonsModul implements Runnable {
 
     }
 
-    private void sendBrett() {
+    private void sendBrett() throws Exception {
         Socket socket;
-        ServerSocket serverSocket = null;
+        /*ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket();
             socket = serverSocket.accept();
@@ -64,7 +57,13 @@ public class KommunikasjonsModul implements Runnable {
         }
 
 
-        taImotBrett();
+        taImotBrett();*/
+
+            socket = new Socket();
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+
     }
 
     public boolean isSpiller1tur() {

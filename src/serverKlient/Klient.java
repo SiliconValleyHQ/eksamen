@@ -1,6 +1,6 @@
-package kommunikasjon;
+package serverKlient;
 
-import gui.*;
+import spill.DamSpill;
 
 import java.io.*;
 import java.net.Socket;
@@ -20,7 +20,6 @@ public class Klient implements Runnable {
     private Scanner scanner = new Scanner(System.in);
 
     public Klient() throws IOException, ClassNotFoundException {
-        new CheckersCanvas();
         forbindelse();
     }
 
@@ -40,8 +39,8 @@ public class Klient implements Runnable {
 
                 ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
                 System.out.println("Jeg kjører");
-                CheckersCanvas spillStatus = (CheckersCanvas) objectInputStream.readObject();
-                spillStatus.checkersCanvas();
+                DamSpill spillStatus = (DamSpill) objectInputStream.readObject();
+                spillStatus.LagOgVisGUI();
 
                 dis = new DataInputStream(socket.getInputStream());
                 System.out.println("greaaaaat success?");
