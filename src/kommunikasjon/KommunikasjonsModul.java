@@ -6,7 +6,7 @@ import java.net.Socket;
 
 /**
  * Created by Bror on 08.12.2016.
- * A class to hold kommunikasjon game information.
+ * Klasse for å holde på spill informasjon
  */
 public class KommunikasjonsModul implements Runnable {
 
