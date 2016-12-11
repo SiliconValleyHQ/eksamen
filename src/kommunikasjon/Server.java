@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Server {
 
     private Scanner scanner = new Scanner(System.in);
-    private Thread thread;
+    public Thread thread;
     public ServerSocket serverSocket;
 
     int port = 22222;
@@ -26,6 +26,7 @@ public class Server {
         port = scanner.nextInt(); //Henter inn innskrevet portnr
         try {
             serverSocket = new ServerSocket(port);
+            thread = new Thread();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("nope, kan ikke lage ServerSocket");

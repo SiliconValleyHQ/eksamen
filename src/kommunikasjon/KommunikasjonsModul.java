@@ -1,7 +1,12 @@
 package kommunikasjon;
 
+import gui.SpillBrett;
+
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -16,15 +21,49 @@ public class KommunikasjonsModul implements Runnable {
     boolean spiller1tur = false;
     boolean spiller2tur = false;
 
-    public KommunikasjonsModul(Socket klientSocket) {
+    public KommunikasjonsModul(Socket klientSocket) throws IOException {
         spiller1tur = true; //Sørger for at spiller 1 får første trekk
         this.socket = klientSocket;
-        System.out.println("hallo?");
+
+
+        //mail skal erstattes med Spillbrett som inneholder ALT, hensikten er å sende status på hele brettet.
+        SpillBrett mittSpillbrett = new SpillBrett();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(klientSocket.getOutputStream());
+        objectOutputStream.writeObject(mittSpillbrett);
+
+        objectOutputStream.close();
+
+
+
+
     }
 
     public void utfortTrekk() {
         spiller1tur = !spiller1tur;
         spiller2tur = !spiller2tur;
+
+        sendBrett();
+
+
+    }
+
+    private void taImotBrett() {
+
+
+    }
+
+    private void sendBrett() {
+        Socket socket;
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket();
+            socket = serverSocket.accept();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        taImotBrett();
     }
 
     public boolean isSpiller1tur() {

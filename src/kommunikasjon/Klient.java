@@ -1,6 +1,8 @@
 package kommunikasjon;
 
-import gui.DamVindu;
+//import gui.DamVindu;
+
+import gui.SpillBrett;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,12 +18,12 @@ public class Klient {
     Socket socket;
     private DataOutputStream dos;
     private DataInputStream dis;
-    private Thread thread;
+    public Thread thread;
     private Scanner scanner = new Scanner(System.in);
 
     public Klient() throws IOException {
         forbindelse();
-        new DamVindu();
+        //new DamVindu();
     }
 
     public static void main (String[] args) {
@@ -33,7 +35,7 @@ public class Klient {
     }
 
     public boolean forbindelse() {
-        while (true) {
+            System.out.println("boooom");
             try {
                 System.out.println("Skriv inn ip-adressen til serveren");
                 ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
@@ -41,15 +43,26 @@ public class Klient {
                 port = scanner.nextInt(); //Henter inn innskrevet portnr
                 socket = new Socket(ip, port);
                 dos = new DataOutputStream(socket.getOutputStream());
+
+
+
+                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+                SpillBrett minMottatMail = (SpillBrett) objectInputStream.readObject();
+                minMottatMail.hvemErJeg();
+
+
+
                 dis = new DataInputStream(socket.getInputStream());
                 thread = new Thread();
                 System.out.println("greaaaaat success?");
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
-            return true;
-        }
+        return true;
+
     }
 
     public DataInputStream getDataInputStream() {
