@@ -9,14 +9,24 @@ import java.util.Scanner;
 /**
  * Created by Bror on 08.12.2016.
  */
+
+/**
+ * Klassen Klient inneholder den viktigste informasjonen en basis klient må inneholde
+ */
 public class Klient implements Runnable {
 
+    // Standard portnummer, om brukerne ikke har spesifisert noe annet
     int port = 22222;
+    // Standard IP-adresse om brukeren ikke har spesifisert noe annet
     String ip = "127.0.0.1";
+    // Definerer Socket
     Socket socket;
+    // Definerer DataOutputStream
     private DataOutputStream dos;
+    // Defeinerer DataInputStream
     private DataInputStream dis;
     public Thread thread;
+    // Tar og lagrer input fra konsollen til brukren i variablenen scanner
     private Scanner scanner = new Scanner(System.in);
 
     public Klient() throws IOException, ClassNotFoundException {
