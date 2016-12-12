@@ -8,7 +8,6 @@ import java.io.Serializable;
  */
 public class Brikke implements Serializable {
 
-
     /** Den raden brikken står på*/
     private int rad;
 

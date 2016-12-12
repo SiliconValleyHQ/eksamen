@@ -20,11 +20,11 @@ public class Klient implements Runnable {
     // Standard IP-adresse om brukeren ikke har spesifisert noe annet
     String ip = "127.0.0.1";
     // Definerer Socket
-    Socket socket;
+    static Socket socket;
     // Definerer DataOutputStream
-    private DataOutputStream dos;
+    private ObjectOutputStream objectOutputStream;
     // Defeinerer DataInputStream
-    private DataInputStream dis;
+    private ObjectInputStream objectInputStream;
     public Thread thread;
     // Tar og lagrer input fra konsollen til brukren i variablenen scanner
     private Scanner scanner = new Scanner(System.in);
@@ -45,14 +45,14 @@ public class Klient implements Runnable {
                 System.out.println("skriv inn en porten til serveren");
                 port = scanner.nextInt(); //Henter inn innskrevet portnr
                 socket = new Socket(ip, port);
-                dos = new DataOutputStream(socket.getOutputStream());
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
                 ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
                 System.out.println("Jeg kjører");
                 DamSpill spillStatus = (DamSpill) objectInputStream.readObject();
                 spillStatus.LagOgVisGUI();
 
-                dis = new DataInputStream(socket.getInputStream());
+                this.objectInputStream = new ObjectInputStream(socket.getInputStream());
                 System.out.println("greaaaaat success?");
                 thread = new Thread();
             } catch (IOException e) {
@@ -63,12 +63,16 @@ public class Klient implements Runnable {
 
     }
 
-    public DataInputStream getDataInputStream() {
-        return dis;
+    public ObjectInputStream getDataInputStream() {
+
+
+        return objectInputStream;
     }
 
-    public DataOutputStream getDataOutputStream() {
-        return dos;
+    public ObjectOutputStream getDataOutputStream() {
+
+
+        return objectOutputStream;
     }
 
 

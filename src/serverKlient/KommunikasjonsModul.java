@@ -1,13 +1,17 @@
 package serverKlient;
 
 import spill.Brett;
+import spill.Brikke;
 import spill.DamSpill;
 import spill.Rute;
+import sun.plugin2.message.Serializer;
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
+
 
 import static spill.Brett.move;
+import static spill.Brett.rader;
 
 /**
  * Created by Bror on 08.12.2016.
@@ -45,22 +49,70 @@ public class KommunikasjonsModul implements Runnable {
 
     }
 
-    private void taImotBrett() {
+    private Serializer getData(byte[] b) {
+        Serializer serializer = null;
+        try {
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(b);
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            serializer = (Serializer) objectInputStream.readObject();
+            System.out.println("Mottatt en pakke");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return serializer;
+    }
 
+    private void taImotBrett(Socket klientSocket) {
+        Brett brett = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("/tmp/logg.ser");
+            ObjectInputStream inn = new ObjectInputStream(fileInputStream);
+            brett = (Brett) inn.readObject();
+            inn.close();
+            fileInputStream.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Brett ikke funnet");
+            c.printStackTrace();
+            return;
+        }
+
+        /* this.socket = klientSocket;
+        byte[] mottaData = new byte[1024];
+
+        while (true) {
+
+            DatagramPacket motattPakke = new DatagramPacket(mottaData, mottaData.length);
+            Klient.socket.receive(motattPakke);
+            String nyPosisjon = new String(motattPakke.getData());
+
+            Serializer serializer = Serializer.getData();
+            if () {
+                rad = null;
+            }
+
+        } */
     }
 
     private void sendBrett() throws Exception {
-        Socket socket;
+        Brett brett = new Brett();
+        Rute rute = new Rute(this, this, this);
+        Brikke brikke = new Brikke(this, this, this);
+        brett.move(rute, rute);
+        brett.getRute(rute.getRad(), rute.getKolonne());
+        brett.hentMuligeTrekk(brikke);
 
-            socket = new Socket();
+        try {
             FileOutputStream fileOutputStream = new FileOutputStream("/tmp/logg.ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(move);
-
-            /*PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));*/
-
+            objectOutputStream.writeObject(brett);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
     }
 
     public boolean isSpiller1tur() {

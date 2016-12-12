@@ -9,32 +9,25 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Rute extends Canvas implements Serializable {
 
-
     /** Fargene rutene kan ha */
     public enum bakgrunnsFarge {
         LYS, MORK
     }
 
-
     /** Fargen på en rute */
     private bakgrunnsFarge bakgrunnsFarge;
-
 
     /** Om det er i noen brikke i ruten */
     private boolean okkupert;
 
-
     /** Brikken som okkuperer en rute. Denne kan være NULL */
     private Brikke okkupant;
-
-
 
     /** Raden ruten er i */
     private int rad;
 
     /** kolonnen ruten er i */
     private int kolonne;
-
 
     /** Lager en ny rute på en gitt posisjon med riktig bakgrunnsfarge
      *
@@ -56,44 +49,34 @@ public class Rute extends Canvas implements Serializable {
         this.kolonne = minKolonne;
     }
 
-
-
-
-    /** Returnerer om ruten er okkupert eller ikke
-     */
+    /** Returnerer om ruten er okkupert eller ikke */
     public boolean erOkkupert() {
         return this.okkupert;
     }
 
 
-    /** Henter raden ruten er på
-     */
+    /** Henter raden ruten er på */
     public int getRad() {
         return this.rad;
     }
 
-    /** Henter kolonnen ruten er på
-     */
+    /** Henter kolonnen ruten er på */
     public int getKolonne() {
         return this.kolonne;
     }
 
-    /** Henter bakgrunnsfargen i ruten
-     */
+    /** Henter bakgrunnsfargen i ruten */
     public bakgrunnsFarge getBackgroundColor() {
         return this.bakgrunnsFarge;
     }
 
-    /** hent brikken som okkuperer ruten
-     */
+    /** hent brikken som okkuperer ruten */
     public Brikke getOkkupant() {
         if(this.erOkkupert()) {
             return this.okkupant;
         }
         return null;
     }
-
-
 
     /** Om ruten skal være uthevet eller ikke
      * @param utforUtheving 			Om ruten skal utheves eller ikke
@@ -111,14 +94,12 @@ public class Rute extends Canvas implements Serializable {
                 //Tenger ett rektangel rundt ruten
                 g.setColor(Color.YELLOW);
                 g.draw3DRect(0, 0, 63, 63, false);
-
             }
         } else {
             //Hvis ruten er uthevet, fjern uthevingen
             super.update(this.getGraphics());
         }
     }
-
 
     /** Setter okkupanten av ruten
      *
@@ -134,10 +115,6 @@ public class Rute extends Canvas implements Serializable {
         }
     }
 
-
-
-
-
     @Override
     /** Få ruten til å tegne seg på nytt, på den måten fjerner vi brikker og uthevning.
      */
@@ -150,17 +127,11 @@ public class Rute extends Canvas implements Serializable {
         }
 
         if(this.erOkkupert()) {
-
             g.setColor(okkupant.getFarge());
             g.fillOval(5, 5, 54, 54);
-
-
         } else {
             g.clearRect(0, 0, 64, 64);
         }
-
     }
-
-
 
 }
