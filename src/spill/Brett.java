@@ -1,14 +1,15 @@
 package spill;
 
-import java.io.Serializable;
-import java.util.Vector;
 import java.awt.*;
+import java.io.Serializable;
+import java.util.Observable;
+import java.util.Vector;
 
 /**
  * Denne klassen lagrer spillbrettet som et 2D array av ruter. Denne klassen sørger også for funksjonaliteten
  * til en Brikke i en Rute, og muligheten til å se alle mulige trekk for en valgt brikke
  */
-public class Brett implements Serializable {
+abstract public class Brett  implements Serializable {
 
 	/** Antall rader på brettet */
 	private static final int rader = 8;
@@ -23,7 +24,7 @@ public class Brett implements Serializable {
 	 * Konsturktøren tar ingen argumenter, og produserer ett brett med gitt antall kolonner og rader,
 	 * med varierende bakgrunnsfarge
 	 */
-	protected Brett() {
+	public Brett() {
 		spillBrett = new Rute[rader][kolonner];
 
 		//Set up the game board with alternating colors
@@ -69,7 +70,7 @@ public class Brett implements Serializable {
 	 * 		Kolonnen ruten skal være i
 	 * @return ruten ved (row, col), eller null hvis (row, col) er utenfor rammene
 	 */
-	protected Rute getRute(int row, int col) {
+    public Rute getRute(int row, int col) {
 		if (innenforRammene(row, col)) {
 			return spillBrett[row][col];
 		}
@@ -107,7 +108,7 @@ public class Brett implements Serializable {
 	 * 		Brikken som en skal finne mulig trekk for
 	 * @return En vektor som viser hvor brikken kan flytte
 	 */
-	protected Vector<Rute> hentMuligeTrekk(Brikke brikke) {
+    public Vector<Rute> hentMuligeTrekk(Brikke brikke) {
 
 		Vector<Rute> muligeTrekk = new Vector<Rute>();
 		Color brikkeFarge = brikke.getFarge();
@@ -180,7 +181,8 @@ public class Brett implements Serializable {
 	 */
 	protected void setUthevningPaaMuligeTrekk(Brikke p, boolean uthev) {
 
-		Vector<Rute> muligeTrekk = hentMuligeTrekk(p);
+        Vector<Rute> muligeTrekk = hentMuligeTrekk(p);
+        //TODO endre vektor til bilder istede?
 
 		if (uthev) {
 			for (Rute highlight : muligeTrekk) {
@@ -197,24 +199,19 @@ public class Brett implements Serializable {
 	/**
 	 * utfør trekket på brettet. Denne metoden sjekker om trekket er lovlig.
 	 *
-	 * @param fra
-	 * 		Ruten vi flytter fra
-	 * @param til
-	 * 		Ruten vi flytter til
 	 * @return True, trekket er gjort og er lovlig. False da skjer det ikke noe.
 	 */
-	protected boolean move(Rute fra, Rute til) {
+    public boolean move(Brikke fra, int rad,int kolonner) {
 		boolean trekkUtfort = false;
 
-		Brikke blirFlyttet = fra.getOkkupant();
+		Brikke blirFlyttet = fra;
 
-		int gammelRad = fra.getRad(), nyRad = til.getRad();
-		int gammelKolonne = fra.getKolonne(), nyKolonne = til.getKolonne();
+		int gammelRad = fra.getRad(), nyRad = rad;
+		int gammelKolonne = fra.getKolonne(), nyKolonne = kolonner;
 
-		fra.setOkkupant(null);
-		blirFlyttet.setLokasjon(til.getRad(), til.getKolonne());
-		til.setOkkupant(blirFlyttet);
-
+	//	fra.setOkkupant(null);
+		blirFlyttet.setLokasjon(rad, kolonner);
+		updateOkkupantObj(blirFlyttet);
 		if (Math.abs(gammelRad - nyRad) > 1 || Math.abs(gammelKolonne - nyKolonne) > 1) {
 			//Hoppet har blitt gjennomført.
 			int taRad = (gammelRad + nyRad) / 2;
@@ -227,9 +224,12 @@ public class Brett implements Serializable {
 			trekkUtfort = true;
 		}
 
-		fra.update(fra.getGraphics());
-		til.update(til.getGraphics());
+	//	fra.update(fra.getGraphics());
+	//	til.update(til.getGraphics());
 		return trekkUtfort;
 	}
+
+
+public	abstract  void updateOkkupantObj(Brikke b);
 
 }

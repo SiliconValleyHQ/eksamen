@@ -28,7 +28,7 @@ public class Brikke implements Serializable {
 	 * @param kolonne
 	 * 		Kolonnen briken skal være på
 	 */
-	protected Brikke(Color farge, int rad, int kolonne) {
+    public Brikke(Color farge, int rad, int kolonne) {
 		this.farge = farge;
 		this.rad = rad;
 		this.kolonne = kolonne;

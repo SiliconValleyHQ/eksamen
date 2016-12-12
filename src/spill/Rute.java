@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Rute extends Canvas implements Serializable {
 
 	/** Fargene rutene kan ha */
-	protected enum bakgrunnsFarge {
+	public enum bakgrunnsFarge {
 		LYS, MORK
 	}
 
@@ -36,7 +36,7 @@ public class Rute extends Canvas implements Serializable {
 	 * @param fargen
 	 * 		fargen til ruten
 	 */
-	protected Rute(bakgrunnsFarge fargen, int minRad, int minKolonne) {
+    public Rute(bakgrunnsFarge fargen, int minRad, int minKolonne) {
 		this.setSize(64, 64);
 		if (fargen == bakgrunnsFarge.MORK) {
 			this.setBackground(Color.DARK_GRAY);
@@ -58,12 +58,12 @@ public class Rute extends Canvas implements Serializable {
 	}
 
 	/** Henter raden ruten er på */
-	protected int getRad() {
+    public int getRad() {
 		return this.rad;
 	}
 
 	/** Henter kolonnen ruten er på */
-	protected int getKolonne() {
+    public int getKolonne() {
 		return this.kolonne;
 	}
 

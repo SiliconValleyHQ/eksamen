@@ -357,6 +357,7 @@ public class DamSpill implements MouseListener, ActionListener, Serializable {
 		brettPanel = new JPanel(new GridLayout(8, 8));
 		brettPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+		//TODO lurer på om vi skal flytte move ut i egen klasse, slik at vi slipper erroren vi nå får.
 		brett = new Brett();
 		brett.plasserBrikkerForStart();
 

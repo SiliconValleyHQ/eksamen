@@ -6,12 +6,11 @@ import spill.DamSpill;
 import spill.Rute;
 import sun.plugin2.message.Serializer;
 
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 
 
-import static spill.Brett.move;
-import static spill.Brett.rader;
 
 /**
  * Created by Bror on 08.12.2016.
@@ -78,12 +77,16 @@ public class KommunikasjonsModul implements Runnable {
     }
 
     private void sendBrett() throws Exception {
-        Brett brett = new Brett();
-        Rute rute = new Rute(this, this, this);
-        Brikke brikke = new Brikke(this, this, this);
-        brett.move(rute, rute);
+
+        Brett brett = new Brett() {
+            @Override
+            public void updateOkkupantObj(Brikke b) {
+
+            }
+        };
+        /*brett.move(rute, rute);
         brett.getRute(rute.getRad(), rute.getKolonne());
-        brett.hentMuligeTrekk(brikke);
+        brett.hentMuligeTrekk(brikke);*/
 
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("/tmp/logg.ser");
@@ -94,6 +97,7 @@ public class KommunikasjonsModul implements Runnable {
         } catch (IOException i) {
             i.printStackTrace();
         }
+
     }
 
 	private boolean isSpiller2tur() {
