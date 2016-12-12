@@ -1,9 +1,13 @@
 package serverKlient;
 
+import spill.Brett;
 import spill.DamSpill;
+import spill.Rute;
 
 import java.io.*;
 import java.net.Socket;
+
+import static spill.Brett.move;
 
 /**
  * Created by Bror on 08.12.2016.
@@ -43,26 +47,19 @@ public class KommunikasjonsModul implements Runnable {
 
     private void taImotBrett() {
 
-
     }
 
     private void sendBrett() throws Exception {
         Socket socket;
-        /*ServerSocket serverSocket = null;
-        try {
-            serverSocket = new ServerSocket();
-            socket = serverSocket.accept();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        taImotBrett();*/
 
             socket = new Socket();
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            FileOutputStream fileOutputStream = new FileOutputStream("/tmp/logg.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(move);
+
+            /*PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));*/
 
     }
 

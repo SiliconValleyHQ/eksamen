@@ -266,6 +266,7 @@ public class DamSpill implements MouseListener, ActionListener, Serializable {
             else if(!funn)
                 //Forteller brukeren at trekket ikke er lov
                 brikkeLabel.setText("No can do baby doll!");
+
         }
 
 

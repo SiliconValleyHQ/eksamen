@@ -16,6 +16,8 @@ public class Brett implements Serializable {
     public static final int rader = 8;
     /** Antall kolonner */
     public static final int kolonner = 8;
+    /** Lager ett object av metoden move, slik at den serealizeres*/
+    public static Object move;
     /** Et array av Ruter som lager brettet*/
     private Rute[][] spillBrett;
 
@@ -71,14 +73,14 @@ public class Brett implements Serializable {
 
     /** Henter en Rute som er inne i Spillbrettet
      *
-     * @param row		Raden ruten skal være i
-     * @param col		Kolonnen ruten skal være i
+     * @param rad		Raden ruten skal være i
+     * @param kolonne		Kolonnen ruten skal være i
      *
      * @return			ruten ved (row, col), eller null hvis (row, col) er utenfor rammene
      */
-    public Rute getRute(int row, int col) {
-        if(innenforRammene(row, col))
-            return spillBrett[row][col];
+    public Rute getRute(int rad, int kolonne) {
+        if(innenforRammene(rad, kolonne))
+            return spillBrett[rad][kolonne];
 
 
         return null;
@@ -99,8 +101,6 @@ public class Brett implements Serializable {
                 if(getRute(row, col).getBackgroundColor() == Rute.bakgrunnsFarge.MORK)
                     getRute(row,col).setOkkupant(new Brikke(Color.BLACK, row, col));
     }
-
-    //TODO Hvis første trekk er tatt, hent brikkeposisjonene fra en loggfil som sendes mellom klientene
 
 
     /** Finner alle mulig Ruter en Brikke kan flyttes til
@@ -240,17 +240,15 @@ public class Brett implements Serializable {
             takeRute.update(takeRute.getGraphics());
 
             trekkUtfort = true;
-
         }
 
         fra.update(fra.getGraphics());
         til.update(til.getGraphics());
 
+        //TODO serialize og pakk ned til en ObjectOutputStream. Når trekket er pakket ned skal det sendes motstander klienten
         return trekkUtfort;
 
-
     }
-
 
 
 
