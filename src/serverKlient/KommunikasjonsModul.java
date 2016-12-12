@@ -19,35 +19,30 @@ import static spill.Brett.rader;
  */
 public class KommunikasjonsModul implements Runnable {
 
-    Socket socket;
-    private PrintWriter output;
-    private BufferedReader input;
-    boolean spiller1tur = false;
-    boolean spiller2tur = false;
+	private Socket socket;
+	private PrintWriter output;
+	private BufferedReader input;
+	private boolean spiller1tur = false;
+	private boolean spiller2tur = false;
 
-    public KommunikasjonsModul(Socket klientSocket) throws IOException {
-        spiller1tur = true; //Sørger for at spiller 1 får første trekk
-        this.socket = klientSocket;
+	protected KommunikasjonsModul(Socket klientSocket) throws IOException {
+		spiller1tur = true; //Sørger for at spiller 1 får første trekk
+		this.socket = klientSocket;
 
+		//Dette skal i teori kunne sende spillet fra en klient til en annen.
+		DamSpill spillBrett = new DamSpill();
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(klientSocket.getOutputStream());
+		objectOutputStream.writeObject(spillBrett);
 
-        //Dette skal i teori kunne sende spillet fra en klient til en annen.
-        DamSpill spillBrett = new DamSpill();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(klientSocket.getOutputStream());
-        objectOutputStream.writeObject(spillBrett);
+		objectOutputStream.close();
+	}
 
-        objectOutputStream.close();
+	private void utfortTrekk() throws Exception {
+		spiller1tur = !spiller1tur;
+		spiller2tur = !spiller2tur;
 
-
-    }
-
-    public void utfortTrekk() throws Exception {
-        spiller1tur = !spiller1tur;
-        spiller2tur = !spiller2tur;
-
-        sendBrett();
-
-
-    }
+		sendBrett();
+	}
 
     private Serializer getData(byte[] b) {
         Serializer serializer = null;
@@ -64,6 +59,7 @@ public class KommunikasjonsModul implements Runnable {
 
     private void taImotBrett(Socket klientSocket) {
         Brett brett = null;
+
         try {
             FileInputStream fileInputStream = new FileInputStream("/tmp/logg.ser");
             ObjectInputStream inn = new ObjectInputStream(fileInputStream);
@@ -79,21 +75,6 @@ public class KommunikasjonsModul implements Runnable {
             return;
         }
 
-        /* this.socket = klientSocket;
-        byte[] mottaData = new byte[1024];
-
-        while (true) {
-
-            DatagramPacket motattPakke = new DatagramPacket(mottaData, mottaData.length);
-            Klient.socket.receive(motattPakke);
-            String nyPosisjon = new String(motattPakke.getData());
-
-            Serializer serializer = Serializer.getData();
-            if () {
-                rad = null;
-            }
-
-        } */
     }
 
     private void sendBrett() throws Exception {
@@ -115,16 +96,13 @@ public class KommunikasjonsModul implements Runnable {
         }
     }
 
-    public boolean isSpiller1tur() {
-        return spiller1tur;
-    }
+	private boolean isSpiller2tur() {
+		return spiller2tur;
+	}
 
-    public boolean isSpiller2tur() {
-        return spiller2tur;
-    }
+	@Override
+	public void run() {
 
-    @Override
-    public void run() {
+	}
 
-    }
 }
