@@ -22,7 +22,7 @@ public class ServerGame
 	{
 		public enum bakgrunnsFarge {
 			LYS, MORK, NIL
-		}
+		}//
 
 		int width; int height;
 
