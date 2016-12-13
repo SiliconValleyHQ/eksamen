@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 public class Server {
 
+	KommunikasjonsModul com = null; //after Server is constructed you will be able to use com.say("any message"); to speak through socket. Let's install communication module for clients now.
 	// Lagrer input fra konsoll i en variabel
 	private Scanner scanner = new Scanner(System.in);
 
@@ -43,6 +44,10 @@ public class Server {
 		try {
 			//starter en ny serverSocket av typen serversocket på porten angitt av brukeren
 			serverSocket = new ServerSocket(port);
+
+			//create communication module
+			//Server has communication module
+			 com = new KommunikasjonsModul(serverSocket);
 			thread = new Thread();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -56,7 +56,7 @@ public class KommunikasjonsModul implements Runnable {
         return serializer;
     }
 
-    private void taImotBrett(Socket klientSocket) {
+    private void taImotBrett(Socket klientSocket) { //TODO Listen and fetch a string for utpdating the board
         Brett brett = null;
 
         try {
@@ -76,7 +76,90 @@ public class KommunikasjonsModul implements Runnable {
 
     }
 
-    private void sendBrett() throws Exception {
+    public void say(String mgs)
+	{
+		while (getOut() == null)
+		{
+			System.err.println("Out not initialized yet!");
+		}
+
+		getOut().println(msg);
+	}
+
+
+
+	public void init()
+	{
+	try
+	{
+		setOut(new PrintWriter(getSocket().getOutputStream(), true));
+		setIn(new BufferedReader(new InputStreamReader(getSocket().getInputStream())));
+	}
+	catch (IOException e)
+	{
+		e.printStackTrace();
+	}
+	}
+
+	public void setIn(BufferedReader in)
+	{
+	this.input = in;
+	}
+
+	public void setOut(PrintWriter out)
+	{
+	this.output = out;
+	}
+	public PrintWriter getOut()
+	{
+		return output;
+	}
+
+	public BufferedReader getIn()
+	{
+		return input;
+	}
+
+	public String readLine()
+	{
+		String ret = null;
+		try
+		{
+			ret = getIn().readLine();
+		}
+		catch (IOException e)
+		{
+			System.err.println("Could not read from socket."+e);
+		}
+				return ret;
+	}
+
+	public String getLineBlocking()
+	{
+		String str = null;
+		while (getIn() == null)
+		{
+			System.out.println("Input not initialized yet!");
+		}
+
+		while (null == (str = readLine()))
+		{
+
+		}
+
+		System.out.prinln("read:"+str);//display for debug only
+
+		return str;
+	}
+
+
+
+	public Socket getSocket()
+	{
+		return socket;
+	}
+
+    private void sendBrett() throws Exception { //TODO Sends the board and calls for the listening to start?
 
         Brett brett = new Brett() {
             @Override

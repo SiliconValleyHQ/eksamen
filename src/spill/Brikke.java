@@ -1,6 +1,9 @@
 package spill;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,11 @@ import java.io.Serializable;
  * brikker spillerne har igjen
  */
 public class Brikke implements Serializable {
+
+	private BufferedImage rodBrikke;
+	private BufferedImage rodKongeBrikke;
+	private BufferedImage sortBrikke;
+	private BufferedImage sortKongeBrikke;
 
 	/** Den raden brikken står på */
 	private int rad;
@@ -32,6 +40,17 @@ public class Brikke implements Serializable {
 		this.farge = farge;
 		this.rad = rad;
 		this.kolonne = kolonne;
+	}
+
+	private void lastInnBrikke() {
+    	try {
+			rodBrikke = ImageIO.read(getClass().getResourceAsStream("/rødBrikke.png"));
+			rodKongeBrikke = ImageIO.read(getClass().getResourceAsStream("/rødKongeBrikke.png"));;
+			sortBrikke = ImageIO.read(getClass().getResourceAsStream("/sortBrikke.png"));;
+			sortKongeBrikke = ImageIO.read(getClass().getResourceAsStream("/sortKongeBrikke.png"));;
+		} catch (IOException x) {
+    		x.printStackTrace();
+		}
 	}
 
 	protected int getRad() {

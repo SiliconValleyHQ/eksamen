@@ -1,5 +1,6 @@
 package spill;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.Observable;
@@ -9,7 +10,7 @@ import java.util.Vector;
  * Denne klassen lagrer spillbrettet som et 2D array av ruter. Denne klassen sørger også for funksjonaliteten
  * til en Brikke i en Rute, og muligheten til å se alle mulige trekk for en valgt brikke
  */
-abstract public class Brett  implements Serializable {
+public class Brett extends JFrame implements Serializable {
 
 	/** Antall rader på brettet */
 	private static final int rader = 8;
@@ -108,7 +109,7 @@ abstract public class Brett  implements Serializable {
 	 * 		Brikken som en skal finne mulig trekk for
 	 * @return En vektor som viser hvor brikken kan flytte
 	 */
-    public Vector<Rute> hentMuligeTrekk(Brikke brikke) {
+    public Vector<Rute> hentMuligeTrekk(Brikke brikke) { //TODO change this vector because it cannot be serialized
 
 		Vector<Rute> muligeTrekk = new Vector<Rute>();
 		Color brikkeFarge = brikke.getFarge();
@@ -201,7 +202,7 @@ abstract public class Brett  implements Serializable {
 	 *
 	 * @return True, trekket er gjort og er lovlig. False da skjer det ikke noe.
 	 */
-    public boolean move(Brikke fra, int rad,int kolonner) {
+    public boolean move(Brikke fra, int rad,int kolonner) { //TODO this moves one piece
 		boolean trekkUtfort = false;
 
 		Brikke blirFlyttet = fra;
@@ -211,7 +212,7 @@ abstract public class Brett  implements Serializable {
 
 	//	fra.setOkkupant(null);
 		blirFlyttet.setLokasjon(rad, kolonner);
-		updateOkkupantObj(blirFlyttet);
+		//updateOkkupantObj(blirFlyttet);
 		if (Math.abs(gammelRad - nyRad) > 1 || Math.abs(gammelKolonne - nyKolonne) > 1) {
 			//Hoppet har blitt gjennomført.
 			int taRad = (gammelRad + nyRad) / 2;
@@ -230,6 +231,6 @@ abstract public class Brett  implements Serializable {
 	}
 
 
-public	abstract  void updateOkkupantObj(Brikke b);
+//public	abstract  void updateOkkupantObj(Brikke b);
 
 }
