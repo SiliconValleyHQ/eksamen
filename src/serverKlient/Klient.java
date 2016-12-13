@@ -49,6 +49,7 @@ public class Klient implements Runnable {
 			ip = scanner.nextLine(); //Henter inn info som er skrevet i konsoll.
 			System.out.println("skriv inn en porten til serveren");
 			port = scanner.nextInt(); //Henter inn innskrevet portnr
+			new DamSpill();
 			socket = new Socket(ip, port);//this is what kommunikasjons module has to get to "speak" and "listen"
 
 			com = new KommunikasjonsModul(socket);//from this moment klient can speak and listen through the socket. The plan is to speak in strings. Say con.say("MOVE A1 B1"); aand listen for such messages. Let's proceed to listening and parsing part.
@@ -62,6 +63,7 @@ public class Klient implements Runnable {
 
 			dis = new DataInputStream(socket.getInputStream());
 			System.out.println("greaaaaat success?");
+
 			thread = new Thread();
 		} catch (IOException e) {
 			e.printStackTrace();

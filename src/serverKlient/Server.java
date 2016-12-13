@@ -47,7 +47,7 @@ public class Server {
 
 			//create communication module
 			//Server has communication module
-			 com = new KommunikasjonsModul(serverSocket);
+			 //com = new KommunikasjonsModul(serverSocket);
 			thread = new Thread();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class Server {
 			// While loopen kommer til å blokke programmet med serverSocket.accept() til serveren har funnet en klient
 			while ((socket = serverSocket.accept()) != null) {
 				// når serveren har forbindelse med en klient, vil serveren kalle på en ny kommunikasjonsmodul med socket som argument
-				new KommunikasjonsModul(socket);
+				//new KommunikasjonsModul(socket);
 				System.out.println("Ny spiller koblet til!");
 			}
 		} catch (Exception e) {

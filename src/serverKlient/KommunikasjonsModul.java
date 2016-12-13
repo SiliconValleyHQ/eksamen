@@ -1,12 +1,8 @@
 package serverKlient;
 
 import spill.Brett;
-import spill.Brikke;
-import spill.DamSpill;
-import spill.Rute;
 import sun.plugin2.message.Serializer;
 
-import java.awt.*;
 import java.io.*;
 import java.net.*;
 
@@ -23,17 +19,18 @@ public class KommunikasjonsModul implements Runnable {
 	private BufferedReader input;
 	private boolean spiller1tur = false;
 	private boolean spiller2tur = false;
+	private String mgs;
 
 	protected KommunikasjonsModul(Socket klientSocket) throws IOException {
 		spiller1tur = true; //Sørger for at spiller 1 får første trekk
 		this.socket = klientSocket;
 
 		//Dette skal i teori kunne sende spillet fra en klient til en annen.
-		DamSpill spillBrett = new DamSpill();
+		/*DamSpill spillBrett = new DamSpill();
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(klientSocket.getOutputStream());
 		objectOutputStream.writeObject(spillBrett);
 
-		objectOutputStream.close();
+		objectOutputStream.close();*/
 	}
 
 	private void utfortTrekk() throws Exception {
@@ -76,97 +73,75 @@ public class KommunikasjonsModul implements Runnable {
 
     }
 
-    public void say(String mgs)
-	{
-		while (getOut() == null)
-		{
+    public void say(String mgs) {
+		this.mgs = mgs;
+		while (getOut() == null) {
 			System.err.println("Out not initialized yet!");
 		}
-
-		getOut().println(msg);
+		getOut().println();
 	}
 
 
 
-	public void init()
-	{
-	try
-	{
-		setOut(new PrintWriter(getSocket().getOutputStream(), true));
-		setIn(new BufferedReader(new InputStreamReader(getSocket().getInputStream())));
-	}
-	catch (IOException e)
-	{
-		e.printStackTrace();
-	}
+	/*public void init() {
+		try {
+			setOut(new PrintWriter(getSocket().getOutputStream(), true));
+			setIn(new BufferedReader(new InputStreamReader(getSocket().getInputStream())));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}*/
+
+	public void setIn(BufferedReader in) {
+		this.input = in;
 	}
 
-	public void setIn(BufferedReader in)
-	{
-	this.input = in;
+	public void setOut(PrintWriter out) {
+		this.output = out;
 	}
 
-	public void setOut(PrintWriter out)
-	{
-	this.output = out;
-	}
-	public PrintWriter getOut()
-	{
+	public PrintWriter getOut() {
 		return output;
 	}
 
-	public BufferedReader getIn()
-	{
+	public BufferedReader getIn() {
 		return input;
 	}
 
-	public String readLine()
-	{
+	public String readLine() {
 		String ret = null;
-		try
-		{
+		try {
 			ret = getIn().readLine();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.err.println("Could not read from socket."+e);
 		}
 				return ret;
 	}
 
-	public String getLineBlocking()
-	{
+	public String getLineBlocking() {
 		String str = null;
-		while (getIn() == null)
-		{
+		while (getIn() == null) {
 			System.out.println("Input not initialized yet!");
 		}
-
-		while (null == (str = readLine()))
-		{
+		while (null == (str = readLine())) {
 
 		}
 
-		System.out.prinln("read:"+str);//display for debug only
-
+		System.out.println("read:"+str);//display for debug only
 		return str;
 	}
 
 
 
-	public Socket getSocket()
-	{
+	/*public ServerSocket getSocket() {
 		return socket;
-	}
+	}*/
 
     private void sendBrett() throws Exception { //TODO Sends the board and calls for the listening to start?
 
         Brett brett = new Brett() {
-            @Override
-            public void updateOkkupantObj(Brikke b) {
-
-            }
-        };
+		};
         /*brett.move(rute, rute);
         brett.getRute(rute.getRad(), rute.getKolonne());
         brett.hentMuligeTrekk(brikke);*/

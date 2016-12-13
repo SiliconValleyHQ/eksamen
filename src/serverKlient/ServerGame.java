@@ -11,10 +11,10 @@ public class ServerGame
 	{
 		Board board;
 
-		public Game()
+		/*public Game()
 		{
 			board = new Board(); //We could use rutte methods just not rute as it is . But it 's okey neverthelesss.
-		}
+		}*/
 
 	}
 

@@ -3,7 +3,6 @@ package spill;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
-import java.util.Observable;
 import java.util.Vector;
 
 /**
@@ -202,7 +201,44 @@ public class Brett extends JFrame implements Serializable {
 	 *
 	 * @return True, trekket er gjort og er lovlig. False da skjer det ikke noe.
 	 */
-    public boolean move(Brikke fra, int rad,int kolonner) { //TODO this moves one piece
+
+	public boolean move(Rute fra, Rute til) {
+		boolean trekkUtfort = false;
+
+		Brikke blirFlyttet = fra.getOkkupant();
+
+		int gammelRad = fra.getRad(), nyRad = til.getRad();
+		int gammelKolonne = fra.getKolonne(), nyKolonne = til.getKolonne();
+
+		fra.setOkkupant(null);
+		blirFlyttet.setLokasjon(til.getRad(), til.getKolonne());
+		til.setOkkupant(blirFlyttet);
+
+		if (Math.abs(gammelRad - nyRad) > 1 || Math.abs(gammelKolonne - nyKolonne) > 1) {
+			//Hoppet har blitt gjennomført.
+			int taRad = (gammelRad + nyRad) / 2;
+			int taKolonne = (gammelKolonne + nyKolonne) / 2;
+
+			Rute takeRute = getRute(taRad, taKolonne);
+			takeRute.setOkkupant(null);
+			takeRute.update(takeRute.getGraphics());
+
+			trekkUtfort = true;
+
+		}
+
+		fra.update(fra.getGraphics());
+		til.update(til.getGraphics());
+
+		return trekkUtfort;
+	}
+
+	public void updateOkkupantObj(Brikke b) {
+
+    }
+
+
+    /*public boolean move(Brikke fra, int rad,int kolonner) { //TODO this moves one piece
 		boolean trekkUtfort = false;
 
 		Brikke blirFlyttet = fra;
@@ -231,6 +267,6 @@ public class Brett extends JFrame implements Serializable {
 	}
 
 
-//public	abstract  void updateOkkupantObj(Brikke b);
+//public	abstract  void updateOkkupantObj(Brikke b);*/
 
 }
