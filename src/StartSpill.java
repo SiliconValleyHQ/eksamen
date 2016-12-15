@@ -1,8 +1,14 @@
 import nettverk.Klient;
 import nettverk.Server;
 
-public class SpillDemo {
+/**
+ * Åpner en server og 2 klienter på port 22222
+ */
+public class StartSpill {
 
+	/**
+	 * Setter porten som server og nettverk/klientene som trådene kjører på.
+	 */
 	private static final int PORT = 22222;
 
 	public static void main(String[] args) {

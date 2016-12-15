@@ -8,7 +8,7 @@ import java.net.Socket;
 
 /**
  * Dette er nettverks klientene. Det er her kommunikasjonen fra Server taes i mot, og behandles
- * før gui.Klient kan oppdaterer.
+ * før grafikk.Klient kan oppdaterer.
  */
 public class Klient extends Thread {
 
@@ -25,7 +25,7 @@ public class Klient extends Thread {
 			//Her henter vi inn klassen Spill som holder styr på statusen på spillet.
 			setSpill(new Spill());
 		} catch (IOException e) {
-			System.err.println("Can not create communication module on port " + port);
+			System.err.println("Kan ikke opprette forbindelse med KommunikasjonsModul på port: " + port);
 			e.printStackTrace();
 		}
 	}
@@ -71,7 +71,7 @@ public class Klient extends Thread {
 			melding = getKommunikasjonsModul().getLinjeBlokkering();
 			MeldingsProssesor meldingsProssesor = new MeldingsProssesor(this);
 			meldingsProssesor.prosses(melding, spiller1());
-		} while (!"END".equals(melding));
+		} while (!"SLUTT".equals(melding));
 
 	}
 

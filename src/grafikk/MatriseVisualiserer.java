@@ -1,4 +1,4 @@
-package gui;
+package grafikk;
 
 import java.awt.*;
 
@@ -7,7 +7,6 @@ public class MatriseVisualiserer {
 	/**
 	 * Her skjer visualiseringen av matrisen. Her setter fargen på matrisen, og hvilke farge enkelte Firkanter har
 	 * i forskjellig tilstand.
-	 * @return
 	 */
 	static Color getAktivFirkantFarge() {
 		return Color.GREEN;

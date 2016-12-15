@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Kommunikasjonsmodulen tar i mot og leser innformasjonen som kommer fra Socket, den sender også.
- * Det er denne klassen som tar seg av serealizeringen. I den forstand at den sender og tar i mot
+ * Kommunikasjonsmodulen tar i mot og leser informasjonen som kommer fra Socket, den sender også.
+ * Det er denne klassen som tar seg av serialisering. I den forstand at den sender og tar i mot meldinger
  */
 public class KommunikasjonsModul {
 
@@ -90,7 +90,7 @@ public class KommunikasjonsModul {
 		while (null == (string = lesLinje())) {
 
 		}
-		System.out.println("read:" + string);
+		System.out.println("les:" + string);
 		return string;
 	}
 

@@ -1,4 +1,4 @@
-package gui;
+package grafikk;
 
 import javax.swing.*;
 
@@ -45,32 +45,9 @@ public class Klient {
 		 * til begge klientene som da starter en repaint av matrisen slik at brettene oppdateres.
 		 * Det vi trenger for at dette skal skjer, er at Klienten må lytte etter endringer.
 		 * Dette kan vi gjøre på flere måter som vi har sett på. Vi kan bruke en Observer, Subscriber eller
-		 * vi kan sende matrisen til klienten og kalle en metode matrise.repaint() når klienten må.
+		 * vi kan sende matrisen til klienten og kalle en metode Matrise.repaint() når klienten må.
 		 * Den siste er den letteste, men ikke den peneste. Og vil være den raskeste måten å fylle kravet til oppgaven på.
 		 */
-
-
-		//now we have constructed our frame :D
-		//now we need to repaint this matrise on actions this is
-		//we have a running thread Klient that contains spill information we need . how to hook up klient and matrise?
-		//we could make a klient pass messages to the
-		// Server that passes the messages to both clients and push the updated boards?
-
-		//Once the klient receives any message processes it we could initiate repainting of a matrise. To initiate repainting
-		//two classes Matrise and Klient have to become coupled .
-		//Klient could be observable and inform Observers on the fact that the klient's state has changed. To do this
-
-		// we can use Observer, Observable pattern. Or subscriber, subscription pattern. Or just do it plain simple and
-
-		//nasty: pass instance of a matrise to the klient and make klient call matrise.repaint() whenever klient has to.
-		//That coding will include some try and eval and take some time. Do you have any questions
-
-		// we was thinking about the nasty way at first, but that would be quite heavy for the server? So an Obersever would
-		// be more effective?  and easier?
-
-		//no not heavy in our case. just the code will look coupled. here we can do anything what works even if it could be heavy on server on anywhere.
-		// What do you think? What would you do? I would think. See at code and try to come up with working solution
-		// that could be done in fastest way then in the way that fulfils our requirements.
 	}
 
 }

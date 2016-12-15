@@ -42,40 +42,34 @@ public class MeldingsProssesor {
 			echo("Mottok motspiller trekk: " + trekk);
 			//Her vil vi sende Stringen til actionlistneren som kan motta og utføre trekket.
 			getActionListener().actionPerformed(
-					new ActionEvent(
-							this,
-							1 /*doesn't matter for use let's just take 1*/,
-							"REPAINT ON MOVE " + trekk.toString2()));
+					new ActionEvent(this, 1, "REPAINT ETTER TREKK " + trekk.toString2()));
 		}
 		// Her sier konsollen hvilke spiller du er
-		else if (melding.startsWith("YOU ARE PLAYING FOR")) {
+		else if (melding.startsWith("DU SPILLER FOR")) {
 			echo(melding);
 		}
-		else if (melding.startsWith("PLEASE OCCUPY SEATS")) {
-
-			}
-			else if (melding.equals("WELCOME")) {
-			// dette illustrerer bare en annen måte å sende en melding på
-				getActionListener().actionPerformed(new ActionEvent(this, 1,"GOT WELCOMING"));
+			else if (melding.equals("VELKOMMEN")) {
+			// dette er en annen måte å sende en melding på
+				getActionListener().actionPerformed(new ActionEvent(this, 1,"MOTATT VELKOMSTMELDING"));
 			}
 			else {
-				echo(String.format("Don't know how to prosses message \"%s\"", melding));
-				// dette illustrerer bare en annen måte å sende en melding på
+				echo(String.format("Klarer ikke prosessere meldingen:  \"%s\"", melding));
+				// dette er en annen måte å sende en melding på
 				getActionListener().actionPerformed(
 						new ActionEvent(this, 1,"ERROR"));
 			}
 	}
 
-	void echo(String message) {
+	private void echo(String message) {
 		System.out.println(message);
 	}
 
-	public ActionListener getActionListener() {
+	private ActionListener getActionListener() {
 		ActionListener actionListener = null;
 		return actionListener;
 	}
 
-	public KommunikasjonsModul getKommunikasjonsModul() {
+	private KommunikasjonsModul getKommunikasjonsModul() {
 		return kommunikasjonsModul;
 	}
 }

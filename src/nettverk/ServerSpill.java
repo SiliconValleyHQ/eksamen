@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
- *
+ * Denne klassen holder på informasjon om spillet og statusene det kan ha.
+ * Den sjekker om noen er koblet til, hvilke lag de er.
+ * Den jobber med informasjonen den sender og mottar gjennom kommunikasjonsmodulen.
+ * og holder sin egen ServerSocket.
+ * Klassen sjekker også om noen har vunnet, og annonserer det.
  */
 public class ServerSpill extends Thread {
 
@@ -49,32 +53,31 @@ public class ServerSpill extends Thread {
 		while (!erKoblet())
 			ventForKobling();
 
-		//Past this point kobling are available. Start spill.
+		//Her er er en koblig satt opp mellom to nettverk.klienter og spillet kan starte.
 		setSpill(new Spill());
 
-		say("WELCOME");
-		say("PLEASE OCCUPY SEATS");
+		say("VELKOMMEN");
 
 		getSpill().okkuperPlass(spiller1());
 		getSpill().okkuperPlass(spiller2());
 
-		say(spiller1(), "YOU ARE PLAYING FOR " + getSpill().plassPosisjon(spiller1()));
-		say(spiller2(), "YOU ARE PLAYING FOR " + getSpill().plassPosisjon(spiller2()));
+		say(spiller1(), "DU SPILLER FOR " + getSpill().plassPosisjon(spiller1()));
+		say(spiller2(), "DU SPILLER FOR " + getSpill().plassPosisjon(spiller2()));
 
 		MeldingsProssesor prossesor = new MeldingsProssesor(this);
 
 		ServerKobling vinner = null;
 		while (!vinnerStatus()) {
-			say(spiller1(), "YOUR TURN");
+			say(spiller1(), "DIN TUR");
 			prossesor.prosses(readLine(spiller1()), spiller1());
 
-			if (vinnerStatus()) //Check for winning condition. NOTE that there might be no possible move so then wins the one who moved last.
-			{
+			// Sjekker om noen har vunnet.
+			if (vinnerStatus()) {
 				vinner = spiller1();
 				break;
 			}
 
-			say(spiller2(), "YOUR TURN");
+			say(spiller2(), "DIN TUR");
 			prossesor.prosses(readLine(spiller2()), spiller2());
 			if (vinnerStatus()) {
 				vinner = spiller2();
@@ -85,7 +88,7 @@ public class ServerSpill extends Thread {
 	}
 
 	private boolean vinnerStatus() {
-		//Check if no checkers left or no move possible.
+		//TODO Sjekk etter lovlige trekk, eller om det ikke er flere brikker.
 		return false;
 	}
 
@@ -120,10 +123,8 @@ public class ServerSpill extends Thread {
 	private void ventForKobling() {
 		try {
 			kobling = new ServerKobling[]{
-					new ServerKobling(getServerSocket().accept()), //wait spiller1
-					new ServerKobling(getServerSocket().accept()) //wait spiller2
-
-			};
+					new ServerKobling(getServerSocket().accept()), //venter på spiller1
+					new ServerKobling(getServerSocket().accept())}; //venter på spiller2
 			setKommunikasjonsModul(new ServerKommunikasjonsModul(kobling));
 		} catch (IOException e) {
 			System.err.println("Kunne ikke godta kobling.");
@@ -139,8 +140,8 @@ public class ServerSpill extends Thread {
 		getKommunikasjonsModul().say(melding);
 	}
 
-	private String readLine(ServerKobling fromPlayer) {
-		return getKommunikasjonsModul().lesLinje(fromPlayer);
+	private String readLine(ServerKobling fraSpiller) {
+		return getKommunikasjonsModul().lesLinje(fraSpiller);
 	}
 
 	private void setKommunikasjonsModul(ServerKommunikasjonsModul kommunikasjonsModul) {

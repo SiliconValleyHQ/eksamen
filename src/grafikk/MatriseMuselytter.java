@@ -1,10 +1,10 @@
-package gui;
+package grafikk;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * Her kjøres handlinene som skal skje når det skjer ett trykk.
+ * Her kjøres handlinene som skal skje, når det skjer ett trykk.
  */
 public class MatriseMuselytter implements MouseListener {
 
@@ -37,4 +37,5 @@ public class MatriseMuselytter implements MouseListener {
 	public void mouseExited(MouseEvent mouseEvent) {
 
 	}
+
 }

@@ -1,4 +1,4 @@
-package gui;
+package grafikk;
 
 import spill.Trekk;
 
@@ -27,12 +27,8 @@ public class Matrise extends Canvas implements ActionListener {
 	private Map<Point, Firkant> firkanter;
 
 	/**
-	 * Her tegner vi en matrise som henter argumenter fra gui.Klient. For å sette størrelsen på matrisen bruker i awt metoden Dimension.
+	 * Her tegner vi en matrise som henter argumenter fra grafikk.Klient. For å sette størrelsen på matrisen bruker i awt metoden Dimension.
 	 * Vi henter også ut og lagrer hvor mange rader og kolonner det skal være.
-	 * @param bredde
-	 * @param høyde
-	 * @param rader
-	 * @param kolonner
 	 */
 	Matrise(int bredde, int høyde, int rader, int kolonner) {
 		dimensjon = new Dimension(bredde, høyde);
@@ -55,16 +51,14 @@ public class Matrise extends Canvas implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		//Dette er Stringen vi sammenligner, det blir gjort med .equals
-		if (e.getActionCommand().equals("GOT WELCOMING")) {
+		if (e.getActionCommand().equals("MOTATT VELKOMSTMELDING")) {
 
 		} else if (e.getActionCommand().equals("REPAINT")) {
 			repaint();
-		} else if (e.getActionCommand().startsWith("REPAINT ON MOVE")) {
+		} else if (e.getActionCommand().startsWith("REPAINT ETTER TREKK")) {
 			// Her ønsker vi det skal være noen logikk som faktisk repainter når ett trekk blir gjort.
 			// Her fant vi ingen god utvei, og må ha dupicatkode fra nettverk.Klient
 			Scanner scanner = new Scanner(e.getActionCommand());
-			scanner.next();
-			scanner.next();
 			scanner.next();
 			String fra = scanner.next();
 			String til = scanner.next();
@@ -86,7 +80,7 @@ public class Matrise extends Canvas implements ActionListener {
 	void Trykket(Firkant firkant) {
 		if (getKlikk() == 0) { //dette betyr vi har den første Firkanten
 			setFirkantFra(firkant);
-		} else if (getKlikk() == 1) { //that means we have second rectangle
+		} else if (getKlikk() == 1) { //dette betyr vi har den andre Firkanten
 			setFirkantTil(firkant);
 		}
 		setKlikk(getKlikk() + 1);
@@ -96,7 +90,6 @@ public class Matrise extends Canvas implements ActionListener {
 
 	/**
 	 * Gettere og Settere som tillater oss å sende informasjon mellom de forskjellige klassene.
-	 * @return
 	 */
 	public Firkant getFirkantFra() {
 		return firkantFra;
@@ -121,8 +114,6 @@ public class Matrise extends Canvas implements ActionListener {
 	private void setKlikk(int klikk) {
 		this.klikk = klikk;
 	}
-
-	//Flere Gettere og Settere
 
 	private int getRader() {
 		return rader;
@@ -165,29 +156,20 @@ public class Matrise extends Canvas implements ActionListener {
 	/**
 	 * Denne koden er viktig. Det er her vi sjekker om en Firkant er blitt trykket på.
 	 * Koden går da gjennom og sjekker koordinatene til Firkanten før den returnerer firkanten.
-	 * @param x
-	 * @param y
-	 * @return
 	 */
 	Firkant getFirkant(int x, int y) {
 		Firkant firkant = null;
 		for (Firkant firkant1 : firkanter()) {
-			if (firkant1.contains(x, y))//Det er er vi sjekker x og y, og ser om det er inne i en firkant
-			{
+			//Det er er vi sjekker x og y, og ser om det er inne i en firkant
+			if (firkant1.contains(x, y)) {
 				firkant1 = firkant1;
 			}
 		}
 		return null;
 	}
 
-	//constructs rectangle by it's position given by row and column indexes.
-	//have to do some math here to calculate firkanter location
-
 	/**
 	 * Her lager vi en firkant bassert på hvilke posisjon rad og kolonner tilsier.
-	 * @param rad
-	 * @param kolonne
-	 * @return
 	 */
 	private Firkant lagFirkant(int rad, int kolonne) {
 		Firkant firkant = new Firkant((int) getWidth() / getKolonner(), (int) getHeight() / getRader());
@@ -203,33 +185,28 @@ public class Matrise extends Canvas implements ActionListener {
 		return (int) getDimension().getWidth();
 	}
 
-
 	/**
 	 * Her skifter vi farge på firkanten, hvis den er trykket på er den aktiv, hvis den blir trykket på igjen
 	 * er den ikke aktiv. Her henter vi informasjon fra klassen MatriseVisualiserer
-	 * @param g
 	 */
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
-		for (Firkant r : firkanter()) {
-			if (r.erAktiv()) {
+		for (Firkant firkant : firkanter()) {
+			if (firkant.erAktiv()) {
 				g2.setPaint(MatriseVisualiserer.getAktivFirkantFarge());
-			}
-			else {
+			} else {
 				g2.setPaint(MatriseVisualiserer.getNormalFirkantFarge());
 			}
-			g2.fill(r);
+			g2.fill(firkant);
 		}
 		tegnMatrise(g2);
 	}
 
-
 	/**
 	 * Vi kan her tegne på Canvasen. Vi tegner nå firkanter på det. Hvis vi putter Canvasen på en JPanel, kan vi
 	 * visualisere matrisen.
-	 * @param g2
 	 */
 	private void tegnMatrise(Graphics2D g2) {
 		g2.setPaint(MatriseVisualiserer.getMatriseFarge());
@@ -242,4 +219,5 @@ public class Matrise extends Canvas implements ActionListener {
 	public java.awt.Dimension getPreferredSize() {
 		return new java.awt.Dimension(getWidth(), getHeight());
 	}
+
 }

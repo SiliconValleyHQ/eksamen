@@ -4,7 +4,6 @@ package nettverk;
  * Denne klassen skal sende ut informasjon til alle klientene som er koblet til.
  * Dette vil jo da kunne sørge for at klientene er oppdatert med samme informasjon.
  */
-
 class ServerKommunikasjonsModul {
 
 	private ServerKobling[] kobling;
@@ -19,8 +18,6 @@ class ServerKommunikasjonsModul {
 
 	/**
 	 * Dette er meldinger som skal sendes til alle klientene
-	 *
-	 * @param melding
 	 */
 	void say(String melding) {
 		for (ServerKobling kobling : getKobling()) {
@@ -30,9 +27,6 @@ class ServerKommunikasjonsModul {
 
 	/**
 	 * Denne snakker med en spesifikk kommunikasjonsmodul.
-	 *
-	 * @param kobling
-	 * @param melding
 	 */
 	void say(ServerKobling kobling, String melding) {
 		kobling.say(melding);

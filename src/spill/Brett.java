@@ -3,7 +3,7 @@ package spill;
 import java.util.Arrays;
 
 /**
- * Lager et brett ved å sette sammen firkantene.
+ * Lager et brettets logikk ved å sette sammen firkantene.
  */
 public class Brett {
 
