@@ -2,30 +2,35 @@ package nettverk;
 
 import java.net.Socket;
 
+/**
+ * Denne klassen kobler serveren opp til KommunikasjonsModulen.
+ * På den måten kan den ta i mot informasjon fra klientene og sende
+ * informasjonen ut igjen til begge klientene, slik at de er like.
+ */
 public class ServerKobling extends Thread {
 
-	private KommunikasjonsModul com;
+	private KommunikasjonsModul kommunikasjonsModul;
 
 	ServerKobling(Socket socket) {
-		com = new KommunikasjonsModul(socket);
-		com.init();
+		kommunikasjonsModul = new KommunikasjonsModul(socket);
+		kommunikasjonsModul.init();
 	}
 
-	private KommunikasjonsModul getCommunicationModule() {
-		return com;
-	}
+	private KommunikasjonsModul getKommunikasjonsModul() {
+		return kommunikasjonsModul;
+	}//
 
 	boolean erKoblet() {
-		return getCommunicationModule().erKoblet();
+		return getKommunikasjonsModul().erKoblet();
 	}
 
 	/**
-	 * Facade method.
+	 * dette er en simplifisert metode fra et bibliotek
 	 *
-	 * @param message
+	 * @param melding sender en string med informasjon
 	 */
-	void say(String message) {
-		getCommunicationModule().melding(message);
+	void say(String melding) {
+		getKommunikasjonsModul().melding(melding);
 	}
 
 	String readLine() {
@@ -33,7 +38,7 @@ public class ServerKobling extends Thread {
 	}
 
 	private String readLineBlocking() {
-		return getCommunicationModule().lesLinjeBlokkering();
+		return getKommunikasjonsModul().lesLinjeBlokkering();
 	}
 
 	@Override

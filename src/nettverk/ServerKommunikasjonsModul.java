@@ -1,5 +1,10 @@
 package nettverk;
 
+/**
+ * Denne klassen skal sende ut informasjon til alle klientene som er koblet til.
+ * Dette vil jo da kunne sørge for at klientene er oppdatert med samme informasjon.
+ */
+
 class ServerKommunikasjonsModul {
 
 	private ServerKobling[] kobling;
@@ -13,7 +18,7 @@ class ServerKommunikasjonsModul {
 	}
 
 	/**
-	 * Say to everyone.
+	 * Dette er meldinger som skal sendes til alle klientene
 	 *
 	 * @param melding
 	 */
@@ -24,7 +29,7 @@ class ServerKommunikasjonsModul {
 	}
 
 	/**
-	 * Say to specific communication module.
+	 * Denne snakker med en spesifikk kommunikasjonsmodul.
 	 *
 	 * @param kobling
 	 * @param melding

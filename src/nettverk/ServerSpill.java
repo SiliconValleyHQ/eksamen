@@ -5,6 +5,9 @@ import spill.Spill;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ *
+ */
 public class ServerSpill extends Thread {
 
 	private Spill spill;
@@ -143,8 +146,6 @@ public class ServerSpill extends Thread {
 	private void setKommunikasjonsModul(ServerKommunikasjonsModul kommunikasjonsModul) {
 		this.kommunikasjonsModul = kommunikasjonsModul;
 	}
-
-
 
 	private void setSpill(Spill spill) {
 		this.spill = spill;

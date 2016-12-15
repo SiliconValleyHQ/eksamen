@@ -2,6 +2,10 @@ package spill;
 
 import java.util.*;
 
+/**
+ * Denne klassen forteller klientene om statusen til spillet.
+ * Det er her mye logikk kalkuleres.
+ */
 public class Spill {
 
 	private Map<Object, Brett.Rute> plass = new HashMap<>();
@@ -18,16 +22,19 @@ public class Spill {
 		return plass;
 	}
 
-	public void okkuperPlass(Object object) {
+	/**
+	 * Forteller hvilken plass som blir tatt av spiller og okkuperer den.
+	 */
+	public void okkuperPlass(Object objekt) {
 		fåLedigePlasser();
-		plass.put(object, fåLedigePlasser()[0]); // plasser på første ledige sete
+		plass.put(objekt, fåLedigePlasser()[0]);
 	}
 
 	/**
-	 * Forteller hvilke plasser som er tatt av spiller
+	 * Forteller hvilke plasser som ble tatt av spiller
 	 */
-	public Brett.Rute plassPosisjon(Object object) {
-		return getPlass().get(object);
+	public Brett.Rute plassPosisjon(Object objekt) {
+		return getPlass().get(objekt);
 	}
 
 	private Object motstanderAv(Brett.Rute rute) {
@@ -39,6 +46,10 @@ public class Spill {
 		return null;
 	}
 
+	/**
+	 * Forteller hvilke plasser som er tatt av spiller
+	 * Bruker fåLedigePlasser() metoden til å skille ut okkuperte plasser.
+	 */
 	private List<Brett.Rute> opptattePlasser() {
 		return new ArrayList<>(getPlass().values());
 	}

@@ -2,11 +2,14 @@ package spill;
 
 import java.util.Arrays;
 
+/**
+ * Lager et brett ved å sette sammen firkantene.
+ */
 public class Brett {
 
-	private int bredde; //width
-	private int høyde; //høyde
-	private Rute[] brett; //Rute[] board;
+	private int bredde;
+	private int høyde;
+	private Rute[] brett;
 
 	private Brett(int xDimensjon, int yDimensjon) {
 		this.bredde = xDimensjon;
@@ -24,6 +27,9 @@ public class Brett {
 		};
 	}
 
+	/**
+	 * Setter opp brettet med getters og setters for dimensjoner osv.
+	 */
 	private void initBrett() {
 		brett = new Rute[getBredde() * getHøyde()];
 		Arrays.fill(brett, Rute.EMPTY);

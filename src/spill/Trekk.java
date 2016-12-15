@@ -1,7 +1,17 @@
 package spill;
 
-public class Trekk { //if you want to see what i did here let me know ;)
+/**
+ * Denne klassen regner ut posisjonene til hvilket trekk som ble gjort
+ * tar imot 2 strenger og gjør de om til 2 "x,y"-koordinater.
+ */
+public class Trekk {
 
+	/**
+	 * @var fraX definerer x-posisjonen til første trykket firkant.
+	 * @var fraY definerer y-posisjonen til førstetrykket firkant.
+	 * @var tilX definerer x-posisjonen til andre trykket firkant.
+	 * @var tilY definerer y-posisjonen tilandre  trykket firkant.
+	 */
 	private int fraX;
 	private int fraY;
 	private int tilX;
@@ -10,8 +20,8 @@ public class Trekk { //if you want to see what i did here let me know ;)
 	/**
 	 * Forventer string i format "x,y".
 	 *
-	 * @param fra
-	 * @param til
+	 * @param fra splitter opp fra-strenger til kordinater.
+	 * @param til splitter opp til-strenger til kordinater.
 	 */
 	public Trekk(String fra, String til) {
 		fraX = Integer.valueOf(fra.split(",")[0]);

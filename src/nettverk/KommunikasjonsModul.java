@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-
 /**
  * Kommunikasjonsmodulen tar i mot og leser innformasjonen som kommer fra Socket, den sender også.
  * Det er denne klassen som tar seg av serealizeringen. I den forstand at den sender og tar i mot
@@ -86,7 +85,7 @@ public class KommunikasjonsModul {
 	String getLinjeBlokkering() {
 		String string;
 		while (null == getInn()) {
-			System.out.println("Ikke initialisert ennå");
+			System.out.println("Ikke initialisert ennå!");
 		}
 		while (null == (string = lesLinje())) {
 
