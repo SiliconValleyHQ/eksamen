@@ -1,5 +1,12 @@
 package gui;
 
+/**
+ * Denne klassen tar seg av firkantene på brettet.
+ * Klassen inneholder og sender kun informasjon om rutene rundt til de andre aktuelle klassene.
+ * Denne klassen vet om en rute er markert, hvilke som ble markert etter den første.
+ * Denne informasjonen kan brukes for å flytte brikkene rundt.
+ */
+
 public class Firkant extends java.awt.Rectangle {
 
 	private Boolean flyttetFra = null;

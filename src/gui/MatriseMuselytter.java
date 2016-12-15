@@ -3,6 +3,9 @@ package gui;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Her kjøres handlinene som skal skje når det skjer ett trykk.
+ */
 public class MatriseMuselytter implements MouseListener {
 
 	@Override

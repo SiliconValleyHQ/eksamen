@@ -4,7 +4,11 @@ import java.awt.*;
 
 public class MatriseVisualiserer {
 
-	//some customizing from this point it's not clear yet if we will use it as it is here
+	/**
+	 * Her skjer visualiseringen av matrisen. Her setter fargen på matrisen, og hvilke farge enkelte Firkanter har
+	 * i forskjellig tilstand.
+	 * @return
+	 */
 	static Color getAktivFirkantFarge() {
 		return Color.GREEN;
 	}

@@ -11,17 +11,25 @@ import java.util.Scanner;
 
 public class Klient extends Thread {
 
+	/**
+	 * Dette er nettverks klientene. Det er her kommunikasjonen fra Server taes i mot, og behandles
+	 * før gui.Klient kan oppdaterer.
+	 */
+
 	private ActionListener actionListener;
 	private Spill spill;
 	private KommunikasjonsModul kommunikasjonsModul;
 
+	//Denne klienten startes samtidig som serveren på samme port. Vårt tilfelle 22222
 	public Klient(int port) {
 		try {
+			//starter ny Socket på localhost med port 22222 og instanserer kommunikasjonsmodul
 			lagKommunikasjonsModulPå(new Socket("localhost", port));
 			kommunikasjonsModul.init();
+			//Her henter vi inn klassen Spill som holder styr på statusen på spillet.
 			setSpill(new Spill());
 		} catch (IOException e) {
-			System.err.println("Can not create communication module on port " + port);
+			System.err.println("Kan ikke starte kommunikasjonsmodul på port: " + port);
 			e.printStackTrace();
 		}
 	}
@@ -54,6 +62,12 @@ public class Klient extends Thread {
 		setKommunikasjonsModul(new KommunikasjonsModul(socket));
 	}
 
+	/**
+	 * I run metoden skjer det vil vil skal skje når vi starter en ny tråd.
+	 * Her vil vi sende en melding som inneholder hva som skjer i spillet, som
+	 * sendes til den andre klienten. Problemet vårt her at vi har flere tråder, og denne tråden kan jobbe raskere enn
+	 * en GUI tråd. Disse vil da komme asynk, og skape problemer.
+	 */
 	@Override
 	public void run() {
 		String melding;
@@ -65,61 +79,51 @@ public class Klient extends Thread {
 
 	}
 
+	/**
+	 * MeldingsProssesoren er en klasse under Klientklassen. Den sender Strenger som skal starte en action hos motstander klientene eller
+	 * i denne spillerens klinet.
+	 */
 	public class MeldingsProssesor {
-
-		MeldingsProssesor() {
-
-		}
 
 		void process(String melding) {
 			if (null == melding) {
 				throw new IllegalArgumentException("Melding kan ikke være null");
 			}
 
+			//Her sender vi en melding om at det er din tur. Her sender vi da ett statisk trekk fra koordinaten 1,1 til 2,1
 			if (melding.equals("DIN TUR")) {
 				getKommunikasjonsModul().melding("TREKK 1,1 2,1");
 			}
-			else if (melding.startsWith("MOTSTANDER TREKK ")) {
-				//Received opponent trekk
-				// Trekk received.
+
+			//Her taes trekket fra motstanderen i mot, og printes ut igjen.
+			else if (melding.startsWith("MOTSTANDER TREKK")) {
+				// Trekk mottaes.
 				Scanner scanner = new Scanner(melding);
 				scanner.next();
-				scanner.next();//skip words OPPONENT MOVE
+				scanner.next();//her hopper vi over OPPONENT MOVE
 				String from = scanner.next();
 				String to = scanner.next();
 				Trekk trekk = new Trekk(from, to);
 				echo("Mottok motspiller trekk: " + trekk);
-				//pass action to the actionlistener
-				getActionListener().actionPerformed(
-						new ActionEvent(
-								this,
-								1 /*doesn't matter for use let's just take 1*/,
-								"REPAINT ON MOVE " + trekk.toString2()));
+				//Her vil vi sende Stringen til actionlistneren som kan motta og utføre trekket.
+				getActionListener().actionPerformed(new ActionEvent(this, 1 , "REPAINT ON MOVE " + trekk.toString2()));
 			}
+			// Her sier konsollen hvilke spiller du er
 			else if (melding.startsWith("YOU ARE PLAYING FOR")) {
 				echo(melding);
 			}
-			else //noinspection StatementWithEmptyBody
+			else
 				if (melding.startsWith("PLEASE OCCUPY SEATS")) {
-					//do whatever
 				}
 				else if (melding.equals("WELCOME")) {
-					//this is for illustration of different message passing usage
-					//pass action to the actionlistener
-					getActionListener().actionPerformed(
-							new ActionEvent(
-									this,
-									1 /*doesn't matter for use let's just take 1*/,
-									"GOT WELCOMING")
-					);
+					// dette illustrerer bare en annen måte å sende en melding på
+					getActionListener().actionPerformed(new ActionEvent(this, 1, "GOT WELCOMING"));
 				}
 				else {
 					echo(String.format("Don't know how to prosses message \"%s\"", melding));
-					//another illustration
-					//pass action to the actionlistener
+					// dette illustrerer bare en annen måte å sende en melding på
 					getActionListener().actionPerformed(
-							new ActionEvent(this, 1 /*doesn't matter for use let's just take 1*/,
-									"ERROR"));
+							new ActionEvent(this,1,"ERROR"));
 				}
 		}
 
