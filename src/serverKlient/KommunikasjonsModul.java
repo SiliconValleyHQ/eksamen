@@ -53,7 +53,7 @@ public class KommunikasjonsModul implements Runnable {
         return serializer;
     }
 
-    private void taImotBrett(Socket klientSocket) { //TODO Listen and fetch a string for utpdating the board
+    private void taImotBrett(Socket klientSocket) { //TODO Listen and fetch a string for utpdating the rute
         Brett brett = null;
 
         try {
@@ -138,7 +138,7 @@ public class KommunikasjonsModul implements Runnable {
 		return socket;
 	}*/
 
-    private void sendBrett() throws Exception { //TODO Sends the board and calls for the listening to start?
+    private void sendBrett() throws Exception { //TODO Sends the rute and calls for the listening to start?
 
         Brett brett = new Brett() {
 		};
